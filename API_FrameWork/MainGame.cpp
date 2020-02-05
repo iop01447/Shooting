@@ -4,6 +4,8 @@
 #include "Monster.h"
 #include "Mouse.h"
 #include "CollisionMgr.h"
+#include "Boss.h"
+#include "MiniGun.h"
 
 
 CMainGame::CMainGame()
@@ -25,8 +27,20 @@ void CMainGame::Initialize()
 	dynamic_cast<CPlayer*>(m_listObj[OBJID::PLAYER].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
 
 	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
-
+	
 	m_listObj[OBJID::MOUSE].emplace_back(CAbstractFactory<CMouse>::Create());
+
+
+	//보스생성코드 시작 -> 싫으면 주석처리
+	m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CBoss>::Create());	
+	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Boss(&m_listObj[OBJID::BOSS]);
+	m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CMiniGun>::Create(WINCX/2+MINIGUN_DIS, 200.f)); 
+	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Right(m_listObj[OBJID::BOSS].back());
+	m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CMiniGun>::Create(WINCX / 2 - MINIGUN_DIS, 200.f));
+	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Left(m_listObj[OBJID::BOSS].back());
+	//보스생성코드 끝 
+
+	
 }
 
 void CMainGame::Update()
