@@ -63,7 +63,7 @@ void CMainGame::Late_Update()
 void CMainGame::Render()
 {
 	Rectangle(m_DC, 0, 0, WINCX, WINCY);
-	Rectangle(m_DC, 100, 100, WINCX - 100, WINCY - 100);
+	Rectangle(m_DC, 25, 25, WINCX - 25, WINCY - 25);
 
 	for (int i = 0; i < OBJID::END; ++i)
 	{

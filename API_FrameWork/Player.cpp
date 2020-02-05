@@ -16,10 +16,10 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {
-	m_tInfo.fX = 400.f;
-	m_tInfo.fY = 300.f;
-	m_tInfo.iCX = 100;
-	m_tInfo.iCY = 100;
+	m_tInfo.fX = WINCX / 2;
+	m_tInfo.fY = WINCY - 100;
+	m_tInfo.iCX = 50;
+	m_tInfo.iCY = 50;
 
 
 	m_fDis = 100.f;

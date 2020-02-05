@@ -9,7 +9,7 @@ class CPlayer : public CObj
 public:
 	CPlayer();
 	virtual ~CPlayer();
-
+	
 public:
 	// CObj을(를) 통해 상속됨
 	virtual void Initialize();
