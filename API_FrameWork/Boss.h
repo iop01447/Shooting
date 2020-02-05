@@ -7,10 +7,10 @@ public:
 	CBoss();
 	virtual ~CBoss();
 
-	virtual void Initialize();
-	virtual int Update();
-	virtual void Late_Update();
-	virtual void Render(HDC _DC);
-	virtual void Release();
+//	virtual void Initialize();
+//	virtual int Update();
+//	virtual void Late_Update();
+//	virtual void Render(HDC _DC);
+//	virtual void Release();
 };
 
