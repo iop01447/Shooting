@@ -15,10 +15,10 @@ CBullet::~CBullet()
 
 void CBullet::Initialize()
 {
-	m_tInfo.iCX = 20;
-	m_tInfo.iCY = 20;
+	m_tInfo.iCX = 10;
+	m_tInfo.iCY = 30;
 
-	m_fSpeed = 5.f;
+	m_fSpeed = 10.f;
 }
 
 int CBullet::Update()
