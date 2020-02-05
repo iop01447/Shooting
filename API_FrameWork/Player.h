@@ -27,8 +27,9 @@ public:
 
 private:
 	list<CObj*>*	m_pBullet;
-	POINT			m_tPosin;
 	float			m_fDis;
+	const int m_create_time{ 100 };
+	DWORD m_old_time{ GetTickCount() };
 };
 
 #endif // !__PLAYER_H__

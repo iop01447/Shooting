@@ -5,7 +5,7 @@
 
 CPlayer::CPlayer()
 {
-	ZeroMemory(&m_tPosin, sizeof(m_tPosin));
+//	ZeroMemory(&m_tPosin, sizeof(m_tPosin));
 }
 
 
@@ -29,22 +29,44 @@ void CPlayer::Initialize()
 int CPlayer::Update()
 {
 	if (GetAsyncKeyState(VK_LEFT))
-		m_fAngle += 5.f;
-	if (GetAsyncKeyState(VK_RIGHT))
-		m_fAngle -= 5.f;
-	if (GetAsyncKeyState(VK_UP))
 	{
-		m_tInfo.fX += cosf(m_fAngle * PI / 180.f) * m_fSpeed;
-		m_tInfo.fY -= sinf(m_fAngle * PI / 180.f) * m_fSpeed;
+		if (GetAsyncKeyState(VK_UP))
+		{
+			m_tInfo.fX -= m_fSpeed / sqrtf(2.f);
+			m_tInfo.fY -= m_fSpeed / sqrtf(2.f);
+		}
+		else if (GetAsyncKeyState(VK_DOWN))
+		{
+			m_tInfo.fX -= m_fSpeed / sqrtf(2.f);
+			m_tInfo.fY += m_fSpeed / sqrtf(2.f);
+		}
+		else
+			m_tInfo.fX -= m_fSpeed;
 	}
-	if (GetAsyncKeyState(VK_DOWN))
+	else if (GetAsyncKeyState(VK_RIGHT))
 	{
-		m_tInfo.fX += cosf(m_fAngle * PI / 180.f) * -m_fSpeed;
-		m_tInfo.fY -= sinf(m_fAngle * PI / 180.f) * -m_fSpeed;
+		if (GetAsyncKeyState(VK_UP))
+		{
+			m_tInfo.fX += m_fSpeed / sqrtf(2.f);
+			m_tInfo.fY -= m_fSpeed / sqrtf(2.f);
+		}
+		else if (GetAsyncKeyState(VK_DOWN))
+		{
+			m_tInfo.fX += m_fSpeed / sqrtf(2.f);
+			m_tInfo.fY += m_fSpeed / sqrtf(2.f);
+		}
+		else
+			m_tInfo.fX += m_fSpeed;
 	}
+	else if (GetAsyncKeyState(VK_UP))
+		m_tInfo.fY -= m_fSpeed;
+	else if (GetAsyncKeyState(VK_DOWN))
+		m_tInfo.fY += m_fSpeed;
 
-	if (GetAsyncKeyState(VK_SPACE))
+	if (GetAsyncKeyState(VK_SPACE) && (GetTickCount() - m_old_time) > m_create_time) {
 		m_pBullet->emplace_back(Create_Bullet());
+		m_old_time = GetTickCount();
+	}
 
 
 	Update_Rect();
@@ -54,15 +76,11 @@ int CPlayer::Update()
 
 void CPlayer::Late_Update()
 {
-	m_tPosin.x = LONG(m_tInfo.fX + cosf(m_fAngle * PI / 180.f) * m_fDis);
-	m_tPosin.y = LONG(m_tInfo.fY - sinf(m_fAngle * PI / 180.f) * m_fDis);
 }
 
 void CPlayer::Render(HDC _DC)
 {
 	Rectangle(_DC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	MoveToEx(_DC, (int)m_tInfo.fX, (int)m_tInfo.fY, nullptr);
-	LineTo(_DC, (int)m_tPosin.x, (int)m_tPosin.y);
 }
 
 void CPlayer::Release()
@@ -71,7 +89,8 @@ void CPlayer::Release()
 
 CObj* CPlayer::Create_Bullet()
 {
-	CObj* pObj = CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle);
+	//CObj* pObj = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, m_fAngle);
+	CObj* pObj = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY);
 
 	return pObj;
 }

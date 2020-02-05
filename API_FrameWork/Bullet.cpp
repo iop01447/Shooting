@@ -26,25 +26,7 @@ int CBullet::Update()
 	if (m_bDead)
 		return OBJ_DEAD;
 
-	m_tInfo.fX += cosf(m_fAngle * PI / 180.f) * m_fSpeed;
-	m_tInfo.fY -= sinf(m_fAngle * PI / 180.f) * m_fSpeed;
-
-
-	//switch (m_eDir)
-	//{
-	//case BULLET::LEFT:
-	//	m_tInfo.fX -= m_fSpeed;
-	//	break;
-	//case BULLET::RIGHT:
-	//	m_tInfo.fX += m_fSpeed;
-	//	break;
-	//case BULLET::UP:
-	//	m_tInfo.fY -= m_fSpeed;
-	//	break;
-	//case BULLET::DOWN:
-	//	m_tInfo.fY += m_fSpeed;
-	//	break;
-	//}
+	m_tInfo.fY -= m_fSpeed;
 
 	Update_Rect();
 
@@ -53,8 +35,8 @@ int CBullet::Update()
 
 void CBullet::Late_Update()
 {
-	if (100 >= m_tRect.top || 100 >= m_tRect.left
-		|| WINCX - 100 <= m_tRect.right || WINCY - 100 <= m_tRect.bottom)
+	if (25 >= m_tRect.top || 25 >= m_tRect.left
+		|| WINCX - 25 <= m_tRect.right || WINCY - 25 <= m_tRect.bottom)
 		m_bDead = true;
 }
 
