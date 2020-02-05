@@ -43,6 +43,9 @@
     <Filter Include="소스 파일\02.Manager\00.CollisionMgr">
       <UniqueIdentifier>{ce0a350f-9978-41ba-94be-8a280ee5d35a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\01.Obj\30.Boss">
+      <UniqueIdentifier>{5386ec63-be08-474b-8c41-7cc7d5a28212}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -99,6 +102,9 @@
     <ClInclude Include="CollisionMgr.h">
       <Filter>소스 파일\02.Manager\00.CollisionMgr</Filter>
     </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>소스 파일\01.Obj\30.Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -127,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="CollisionMgr.cpp">
       <Filter>소스 파일\02.Manager\00.CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>소스 파일\01.Obj\30.Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
