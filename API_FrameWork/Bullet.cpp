@@ -3,7 +3,7 @@
 
 
 CBullet::CBullet()
-	: m_eDir(BULLET::END)
+	: m_eDir(BULLET::DIR_END), m_eShape(BULLET::CIRCLE)
 {
 }
 
@@ -15,8 +15,8 @@ CBullet::~CBullet()
 
 void CBullet::Initialize()
 {
-	m_tInfo.iCX = 10;
-	m_tInfo.iCY = 30;
+	m_tInfo.iCX = 15;
+	m_tInfo.iCY = 15;
 
 	m_fSpeed = 10.f;
 }
@@ -49,4 +49,21 @@ void CBullet::Render(HDC _DC)
 
 void CBullet::Release()
 {
+}
+
+void CBullet::Set_Shape(BULLET::SHAPE _eShape)
+{
+	m_eShape = _eShape;
+
+	switch (m_eShape)
+	{
+	case BULLET::SHAPE::CIRCLE:
+		m_tInfo.iCX = 15;
+		m_tInfo.iCY = 15;
+		break;
+	case BULLET::SHAPE::ELLIPSE:
+		m_tInfo.iCX = 10;
+		m_tInfo.iCY = 30;
+		break;
+	}
 }

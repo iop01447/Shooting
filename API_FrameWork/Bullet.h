@@ -20,9 +20,11 @@ public:
 
 public:
 	void Set_Dir(BULLET::DIR _eDir) { m_eDir = _eDir; }
+	void Set_Shape(BULLET::SHAPE _eShape);
 
 private:
 	BULLET::DIR		m_eDir;
+	BULLET::SHAPE	m_eShape;
 };
 
 

@@ -21,7 +21,7 @@ public:
 private:
 	CObj* Create_Bullet();
 	CObj* Create_Bullet(BULLET::DIR _eDIr);
-	CObj* Create_Bullet(float x, float y);
+	CObj* Create_Bullet(float x, float y, BULLET::SHAPE _eShape);
 
 public:
 	void Set_Bullet(list<CObj*>* _pBullet) { m_pBullet = _pBullet; }
@@ -33,10 +33,10 @@ public:
 private:
 	list<CObj*>*	m_pBullet;
 	float			m_fDis;
-	const int m_create_time{ 100 };
-	DWORD m_old_time{ GetTickCount() };
+	const DWORD		m_iBulletCreateTime;
+	DWORD			m_OldTime;
 
-	POINT point[4];
+	POINT			m_Points[4];
 
 };
 

@@ -5,7 +5,8 @@
 
 namespace BULLET
 {
-	enum DIR { LEFT, RIGHT, UP, DOWN, END };
+	enum DIR { LEFT, RIGHT, UP, DOWN, DIR_END };
+	enum SHAPE { CIRCLE, ELLIPSE, SHAPE_END };
 }
 
 namespace OBJID
