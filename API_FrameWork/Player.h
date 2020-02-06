@@ -22,10 +22,20 @@ private:
 	CObj* Create_Bullet();
 	CObj* Create_Bullet(BULLET::DIR _eDIr);
 	CObj * CPlayer::Create_Bullet(float x, float y);
-	CObj* Create_Bullet(float x, float y, float angle);
+	CObj* Create_Bullet(float x, float y, float angle, BULLET::SHAPE shape);
+
+	template <typename T>
+	CObj* Create_Bullet(float x, float y, float angle)
+	{
+		CObj* pObj = CAbstractFactory<T>::Create(x, y, angle);
+		pObj->Set_Color(52, 137, 235);
+		pObj->Set_Pen_UnVisible();
+		return pObj;
+	}
 
 public:
 	void Set_Bullet(list<CObj*>* _pBullet) { m_pBullet = _pBullet; }
+	bool Can_Shoot_Bullet(DWORD _BulletcreateTime) { return (GetTickCount() - m_BulletOldTime) > _BulletcreateTime; }
 
 public:
 	void Update_Polygon();
@@ -40,10 +50,15 @@ private:
 	list<CObj*>*	m_pBullet;
 	float			m_fDis;
 	const DWORD		m_iBulletCreateTime;
-	DWORD			m_OldTime;
+	DWORD			m_BulletOldTime;
 
 	POINT			m_Points[4];
 	POINT			m_StarPos[11];
+
+	const DWORD		m_GazeMaxTime;
+	DWORD			m_OldGazeTime;
+
+	int				m_iSkillCnt;
 };
 
 #endif // !__PLAYER_H__
