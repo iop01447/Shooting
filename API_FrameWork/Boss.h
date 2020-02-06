@@ -2,11 +2,11 @@
 #include "Obj.h"
 
 #define ARM_HWIDTH 25.f
-#define ARM_LENGTH 125.0f	//∫∏Ω∫ ∆» ±Ê¿Ã
+#define ARM_LENGTH 100.f	//∫∏Ω∫ ∆» ±Ê¿Ã
 #define POSIN_HWIDTH  10.f
 #define POSIN_HEIGHT 80.f
 #define ARM_HWIDTH 25.f
-#define MINIGUN_DIS (ARM_LENGTH-25.f)
+#define MINIGUN_DIS (ARM_LENGTH+0.f)
 
 class MiniGun;
 class CBoss :
@@ -26,7 +26,11 @@ public:
 	void Set_Left(CObj* _pLeft) { m_pLeft = _pLeft; }
 	void Set_Right(CObj* _pRight) { m_pRight = _pRight; }
 
+	CObj* Create_Bullet(float x, float y);
+	void Set_Bullet(list<CObj*>* _pBullet) { m_pBullet = _pBullet; }
+
 private:
+	list<CObj*>*	m_pBullet;
 	list<CObj*>*	 m_pBoss;
 	CObj*			m_pPlayer;
 	CObj*			m_pLeft;

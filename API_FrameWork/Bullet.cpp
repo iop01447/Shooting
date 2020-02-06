@@ -26,7 +26,9 @@ int CBullet::Update()
 	if (m_bDead)
 		return OBJ_DEAD;
 
-	m_tInfo.fY -= m_fSpeed;
+	//m_tInfo.fY -= m_fSpeed;
+	m_tInfo.fX += cosf(m_fAngle * PI / 180.f) * m_fSpeed;
+	m_tInfo.fY -= sinf(m_fAngle * PI / 180.f) * m_fSpeed;
 
 	Update_Rect();
 

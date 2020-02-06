@@ -10,7 +10,7 @@ namespace BULLET
 
 namespace OBJID
 {
-	enum ID { PLAYER, MONSTER, BULLET, MOUSE, BOSS, END };
+	enum ID { PLAYER, MONSTER, BOSS, BULLET, MOUSE, END };
 }
 
 #endif // !__ENUM_H__

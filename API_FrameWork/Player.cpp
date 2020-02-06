@@ -24,6 +24,8 @@ void CPlayer::Initialize()
 
 	m_fDis = 100.f;
 	m_fSpeed = 5.f;
+
+	m_fAngle = 90.f;
 }
 
 int CPlayer::Update()
@@ -101,7 +103,7 @@ void CPlayer::Release()
 CObj* CPlayer::Create_Bullet()
 {
 	//CObj* pObj = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, m_fAngle);
-	CObj* pObj = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY);
+	CObj* pObj = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, m_fAngle);
 
 	return pObj;
 }
@@ -116,7 +118,7 @@ CObj* CPlayer::Create_Bullet(BULLET::DIR _eDIr)
 
 CObj * CPlayer::Create_Bullet(float x, float y)
 {
-	CObj* pObj = CAbstractFactory<CBullet>::Create(x, y);
+	CObj* pObj = CAbstractFactory<CBullet>::Create(x, y, m_fAngle);
 
 	return pObj;
 }

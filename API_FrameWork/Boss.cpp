@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Boss.h"
+#include "Bullet.h"
+#include "MiniGun.h"
 
 
 
@@ -68,4 +70,10 @@ void CBoss::Release()
 {
 	SAFE_DELETE(m_pLeft);
 	SAFE_DELETE(m_pRight);
+}
+CObj * CBoss::Create_Bullet(float x, float y)
+{
+	CObj* pObj = CAbstractFactory<CBullet>::Create(x, y);
+
+	return pObj;
 }

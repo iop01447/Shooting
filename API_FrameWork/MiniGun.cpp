@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "MiniGun.h"
+#include "Bullet.h"
 
-#define MINI_LENGTH 50.f
+#define MINI_LENGTH 60.f
 #define MINI_HWIDTH 5.f
 #define MINI_HDIS 10.f
 
@@ -18,8 +19,8 @@ CMiniGun::~CMiniGun()
 
 void CMiniGun::Initialize()
 {
-	m_tInfo.iCX = 40.f;
-	m_tInfo.iCY = 40.f;
+	m_tInfo.iCX = 60;
+	m_tInfo.iCY = 60;
 
 	m_fAngle = 270.f;
 
@@ -27,7 +28,9 @@ void CMiniGun::Initialize()
 
 int CMiniGun::Update()
 {
-	
+	m_fAngle += 1;
+	if ((int)m_fAngle % 20 == 0)
+		Shoot_Basic();
 	Update_Rect();
 	return OBJ_NOEVENT;
 }
@@ -57,4 +60,17 @@ void CMiniGun::Render(HDC _DC)
 
 void CMiniGun::Release()
 {
+}
+
+void CMiniGun::Shoot_Basic()
+{
+	m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX + (MINI_HDIS)*cosf((m_fAngle - 90.f)*PI / 180.f) + MINI_LENGTH*cosf(m_fAngle*PI / 180.f), m_tInfo.fY - (MINI_HDIS)*sinf((m_fAngle - 90.f)*PI / 180.f) - MINI_LENGTH*sinf(m_fAngle*PI / 180.f)));
+	m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX + (MINI_HDIS)*cosf((m_fAngle + 90.f)*PI / 180.f) + MINI_LENGTH*cosf(m_fAngle*PI / 180.f), m_tInfo.fY - (MINI_HDIS)*sinf((m_fAngle + 90.f)*PI / 180.f) - MINI_LENGTH*sinf(m_fAngle*PI / 180.f)));
+	
+}
+CObj * CMiniGun::Create_Bullet(float x, float y)
+{
+	CObj* pObj = CAbstractFactory<CBullet>::Create(x, y, m_fAngle);
+
+	return pObj;
 }
