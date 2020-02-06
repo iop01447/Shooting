@@ -8,6 +8,7 @@
 #define ARM_HWIDTH 25.f
 #define MINIGUN_DIS (ARM_LENGTH+0.f)
 #define BOSS_MAX_HP 200
+#define BOSS_ICX 100
 
 class MiniGun;
 class CBoss :
@@ -35,7 +36,16 @@ public:
 	void Rotate_Right(float _fAngle);
 	void Rotate_Left(float _fAngle);
 
+	void State_Ini();
 	void State_P1_Idle();
+	void State_P1_A1_Pre();
+	void State_P1_A1_S1();
+	void State_P1_A1_S2();
+	void State_P1_A1_S3();
+	void State_P2_Idle();
+	
+
+	void Shoot(float _fRAngle, float _fSpeed);
 
 private:
 	list<CObj*>*	m_pBullet;

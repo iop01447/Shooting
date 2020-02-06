@@ -16,11 +16,12 @@ namespace OBJID
 }
 namespace BOSS
 {
-	enum STATE { P1_IDLE, END};
+	enum STATE { INI, P1_IDLE, P1_A1_PRE ,P1_A1_S1, P1_A1_S2, P1_A1_S3,P2_IDLE, END};
 }
 namespace MINIGUN
 {
-	enum ID { LEFT, RIGHT, END};
+	enum ID { LEFT, RIGHT, IEND};
+	enum STATE { NORMAL, LOCKON, STATE_END};
 }
 
 

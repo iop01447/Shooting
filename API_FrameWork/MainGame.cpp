@@ -106,6 +106,7 @@ void CMainGame::Update()
 		}
 		++m_iStage;
 	}
+
 }
 
 
@@ -174,10 +175,12 @@ void CMainGame::Generate_Boss()
 	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Right(m_listObj[OBJID::BOSS].back());
 	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
 	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Id(MINIGUN::RIGHT);
+	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Target(m_listObj[OBJID::PLAYER].front());
 	m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CMiniGun>::Create(WINCX / 2 - MINIGUN_DIS, 200.f));
 	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Left(m_listObj[OBJID::BOSS].back());
 	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
 	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Id(MINIGUN::LEFT);
+	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Target(m_listObj[OBJID::PLAYER].front());
 }
 
 void CMainGame::Spwan_Normal_Monster(float _fX, float _fY)
