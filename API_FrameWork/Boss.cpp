@@ -20,11 +20,11 @@ CBoss::~CBoss()
 
 void CBoss::Initialize()
 {
-	m_tInfo.fX = WINCX / 2;
-	m_tInfo.fY = 200.f;
+	m_tInfo.fX = 100.f;
+	m_tInfo.fY = -200.f;
 
-	m_tInfo.iCX = 100.f;
-	m_tInfo.iCY = 100.f;
+	m_tInfo.iCX = 0;
+	m_tInfo.iCY = 0;
 
 	m_fSpeed = 1.f;
 	m_fAngle = 270.f;
@@ -36,7 +36,7 @@ void CBoss::Initialize()
 
 	m_iHp = BOSS_MAX_HP;
 	
-	m_eState = BOSS::P1_IDLE;
+	m_eState = BOSS::INI;
 }
 
 int CBoss::Update()
@@ -49,16 +49,35 @@ int CBoss::Update()
 		++m_iTick;
 	m_eStatePrev = m_eState;
 
-	if (m_pLeft || m_pRight)	//양쪽 대포 다 안깨면 보스는 무적
-		m_iHp = BOSS_MAX_HP;
+	//if (m_pLeft || m_pRight)	//양쪽 대포 다 안깨면 보스는 무적
+	//	m_iHp = BOSS_MAX_HP;
 	/*m_pLeft->Set_Pos()*/
 	switch (m_eState)
 	{
+	case BOSS::INI:
+		State_Ini();
+		break;
 	case BOSS::P1_IDLE:
 		State_P1_Idle();
 		break;
+	case BOSS::P1_A1_PRE:
+		State_P1_A1_Pre();
+		break;
+	case BOSS::P1_A1_S1:
+		State_P1_A1_S1();
+		break;
+	case BOSS::P1_A1_S2:
+		State_P1_A1_S2();
+		break;
+	case BOSS::P1_A1_S3:
+		State_P1_A1_S3();
+		break;
+	case BOSS::P2_IDLE:
+		State_P2_Idle();
+		break;
 	}
 
+	MiniGun_Update();
 	Update_Rect();
 
 	return OBJ_NOEVENT;
@@ -103,8 +122,8 @@ void CBoss::Render(HDC _DC)
 	LineTo(_DC, m_tInfo.fX + ARM_HWIDTH*cosf((m_fLeftAngle + 90.f)*PI / 180.f), m_tInfo.fY - ARM_HWIDTH*sinf((m_fLeftAngle + 90.f)*PI / 180.f));
 	
 	//몸체
-	Ellipse(_DC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	float fHalf_Diag = /*sqrtf(2.f)**/(m_tInfo.iCX/2);
+	Ellipse(_DC, m_tInfo.fX-BOSS_ICX/2, m_tInfo.fY - BOSS_ICX / 2, m_tInfo.fX + BOSS_ICX / 2, m_tInfo.fY + BOSS_ICX / 2);
+	float fHalf_Diag = /*sqrtf(2.f)**/(BOSS_ICX/2);
 	MoveToEx(_DC, m_tInfo.fX + fHalf_Diag*cosf((45.f + m_fAngle)*PI / 180.f), m_tInfo.fY - fHalf_Diag*sinf((45.f + m_fAngle)*PI / 180.f), nullptr);
 	LineTo(_DC, m_tInfo.fX + fHalf_Diag*cosf((135.f + m_fAngle)*PI / 180.f), m_tInfo.fY - fHalf_Diag*sinf((135.f + m_fAngle)*PI / 180.f));
 	LineTo(_DC, m_tInfo.fX + fHalf_Diag*cosf((225.f + m_fAngle)*PI / 180.f), m_tInfo.fY - fHalf_Diag*sinf((225.f + m_fAngle)*PI / 180.f));
@@ -119,8 +138,8 @@ void CBoss::Render(HDC _DC)
 	LineTo(_DC, m_tInfo.fX + fHalf_Diag*cosf((45.f + m_fAngle)*PI / 180.f), m_tInfo.fY - fHalf_Diag*sinf((45.f + m_fAngle)*PI / 180.f));
 
 	//체력바
-	Rectangle(_DC, 30, 30, 40, 300);
-	RECT tHp = { 30, 30 + ((float)(BOSS_MAX_HP - m_iHp) / (float)BOSS_MAX_HP)*(300-30), 40, 300 };
+	Rectangle(_DC, WINCX-40, 30, WINCX-30, 300);
+	RECT tHp = { WINCX - 40, 30 + ((float)(BOSS_MAX_HP - m_iHp) / (float)BOSS_MAX_HP)*(300-30),  WINCX - 30, 300 };
 	FillRect(_DC, &tHp, CreateSolidBrush(RGB(255, 0, 0)));
 
 	
@@ -177,6 +196,16 @@ void CBoss::Rotate_Left(float _fAngle)
 
 void CBoss::State_P1_Idle()
 {
+	if (m_pLeft == nullptr && m_pRight == nullptr && m_tInfo.fX==300.f) //페이즈2 조건
+	{
+		m_eState = BOSS::P2_IDLE;
+		return;
+	}
+	if (m_iTick >= 7 * 60) //Attack1 조건
+	{
+		m_eState = BOSS::P1_A1_PRE;
+		return;
+	}
 	if (m_tInfo.fX <= 200 || m_tInfo.fX>=400)
 		m_fSpeed *= -1;
 	m_tInfo.fX += m_fSpeed;
@@ -190,12 +219,111 @@ void CBoss::State_P1_Idle()
 	//Rotate_Body(m_fAngleSpeed/2.f);
 	Rotate_Right(m_fRightSpeed);
 	Rotate_Left(m_fLeftSpeed);
-	if (m_iTick % 20 == 0)
+	if (m_iTick % 40 == 0)
 	{
 		if (m_pLeft)
 			dynamic_cast<CMiniGun*>(m_pLeft)->Shoot_Basic();
 		if (m_pRight)
 			dynamic_cast<CMiniGun*>(m_pRight)->Shoot_Basic();
 	}
+	if (m_iTick % 60 == 0)
+		Shoot(0.f, 5.f);
 
+}
+
+void CBoss::State_P1_A1_Pre()
+{
+	bool flagX = false, flagY = false, flagA = false;
+	if (m_tInfo.fX < 400.f)
+		m_tInfo.fX += 2.f;
+	else if (m_tInfo.fX > 402.f)
+		m_tInfo.fX -= 2.f;
+	else
+		flagX = true;
+	if (m_tInfo.fY < 150.f)
+		m_tInfo.fY += 1.f;
+	else if (m_tInfo.fY > 152.f)
+		m_tInfo.fY -= 1.f;
+	else
+		flagY = true;
+	if (m_fAngle > 240.f)
+		Rotate_Body(-1.f);
+	else if (m_fAngle < 238.f)
+		Rotate_Body(1.f);
+	else
+		flagA = true;
+	if (flagX == true && flagY == true && flagA == true)
+		m_eState = BOSS::P1_A1_S1;
+}
+
+void CBoss::State_P1_A1_S1()
+{
+	bool flagL = false, flagR = false;
+	if (m_fAngle - m_fLeftAngle < 120.f)
+		Rotate_Left(-1.f);
+	else
+		flagL = true;
+	if (m_fAngle - m_fRightAngle > 240.f)
+		Rotate_Right(1.f);
+	else
+		flagR = true;
+	if (flagL == true && flagR == true)
+	{
+		m_eState = BOSS::P1_A1_S2;
+		if(m_pLeft)
+			dynamic_cast<CMiniGun*>(m_pLeft)->Set_State(MINIGUN::LOCKON);
+		if(m_pRight)
+			dynamic_cast<CMiniGun*>(m_pRight)->Set_State(MINIGUN::LOCKON);
+	}
+}
+
+void CBoss::State_P1_A1_S2()
+{
+	if (m_iTick % 120 == 0)
+		if (m_pLeft)
+			dynamic_cast<CMiniGun*>(m_pLeft)->Shoot_Basic(5.f);
+	if (m_iTick % 120 == 60)
+		if (m_pRight)
+			dynamic_cast<CMiniGun*>(m_pRight)->Shoot_Basic(5.f);
+	Rotate_Body(2.f);
+	if(/*m_iTick%300/100!=1 &&*/ m_iTick%5==0)
+		Shoot(0.0f, 3.f);
+	if (m_iTick >= 600)
+	{
+		m_eState = BOSS::P1_A1_S3;
+		if (m_pLeft)
+			dynamic_cast<CMiniGun*>(m_pLeft)->Set_State(MINIGUN::NORMAL);
+		if (m_pRight)
+			dynamic_cast<CMiniGun*>(m_pRight)->Set_State(MINIGUN::NORMAL);
+
+	}
+}
+
+void CBoss::State_P1_A1_S3()
+{
+	//go to idle
+
+}
+
+void CBoss::State_Ini()
+{
+	if (m_tInfo.fX >= 300)
+	{
+		m_eState = BOSS::P1_IDLE;
+		return;
+	}
+	m_tInfo.fX += 1.f;
+	m_tInfo.fY += 2.f;
+}
+
+void CBoss::State_P2_Idle()
+{
+	
+}
+
+void CBoss::Shoot(float _fRAngle, float _fSpeed)
+{
+	m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX  + POSIN_HEIGHT*cosf(m_fAngle*PI / 180.f), m_tInfo.fY - POSIN_HEIGHT*sinf(m_fAngle*PI / 180.f)));
+	m_pBullet->back()->Set_Speed(_fSpeed);
+	m_pBullet->back()->Set_Angle(m_fAngle + _fRAngle);
 }
