@@ -111,6 +111,9 @@ void CMiniGun::Shoot_Basic(float _fSpeed)
 CObj * CMiniGun::Create_Bullet(float x, float y)
 {
 	CObj* pObj = CAbstractFactory<CBullet>::Create(x, y, m_fAngle);
+	dynamic_cast<CBullet*>(pObj)->Set_Shape(BULLET::SHAPE::CIRCLE);
+	pObj->Set_Color(200, 200, 0);
+	//pObj->Set_Pen_UnVisible();
 
 	return pObj;
 }
