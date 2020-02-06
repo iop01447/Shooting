@@ -21,7 +21,8 @@ public:
 private:
 	CObj* Create_Bullet();
 	CObj* Create_Bullet(BULLET::DIR _eDIr);
-	CObj* Create_Bullet(float x, float y, BULLET::SHAPE _eShape);
+	CObj * CPlayer::Create_Bullet(float x, float y);
+	CObj* Create_Bullet(float x, float y, float angle);
 
 public:
 	void Set_Bullet(list<CObj*>* _pBullet) { m_pBullet = _pBullet; }

@@ -51,8 +51,8 @@ void CPlayer::Initialize()
 
 int CPlayer::Update()
 {
-	if (m_bDead)
-		return OBJ_DEAD;
+	//if (m_bDead)
+	//	return OBJ_DEAD;
 
 	if (m_iHp < 1) {
 		m_iHp = 1;
@@ -96,18 +96,18 @@ int CPlayer::Update()
 
 	// ÃÑ¾Ë ½î±â
 	int size = 7;
-	BULLET::SHAPE shape = BULLET::SHAPE::ELLIPSE;
 	if (GetAsyncKeyState(VK_SPACE) && (GetTickCount() - m_OldTime) > m_iBulletCreateTime) {
 		m_OldTime = GetTickCount();
-		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX-size, m_tInfo.fY-3*size-10, shape));
-		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX+size, m_tInfo.fY-3*size-10, shape));
-		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX-2*size, m_tInfo.fY-10, shape));
-		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX+2*size, m_tInfo.fY-10, shape));
+		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX-size, m_tInfo.fY-3*size-10));
+		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX+size, m_tInfo.fY-3*size-10));
+		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX-2*size, m_tInfo.fY-10));
+		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX+2*size, m_tInfo.fY-10));
 	}
 
 	// ½ºÅ³
-	if (GetAsyncKeyState('Q'))
+	if (GetAsyncKeyState('Q') && (GetTickCount() - m_OldTime) > m_iBulletCreateTime)
 	{
+		m_OldTime = GetTickCount();
 		Skill_1();
 	}
 
@@ -154,10 +154,20 @@ CObj* CPlayer::Create_Bullet(BULLET::DIR _eDIr)
 	return pObj;
 }
 
-CObj * CPlayer::Create_Bullet(float x, float y, BULLET::SHAPE _eShape)
+CObj * CPlayer::Create_Bullet(float x, float y)
 {
 	CObj* pObj = CAbstractFactory<CBullet>::Create(x, y, m_fAngle);
-	dynamic_cast<CBullet*>(pObj)->Set_Shape(_eShape);
+	dynamic_cast<CBullet*>(pObj)->Set_Shape(BULLET::SHAPE::ELLIPSE);
+	pObj->Set_Color(52, 137, 235);
+	pObj->Set_Pen_UnVisible();
+
+	return pObj;
+}
+
+CObj * CPlayer::Create_Bullet(float x, float y, float angle)
+{
+	CObj* pObj = CAbstractFactory<CBullet>::Create(x, y, angle);
+	dynamic_cast<CBullet*>(pObj)->Set_Shape(BULLET::SHAPE::ELLIPSE);
 	pObj->Set_Color(52, 137, 235);
 	pObj->Set_Pen_UnVisible();
 
@@ -189,5 +199,10 @@ void CPlayer::Draw_Star(HDC _DC, int _x, int _y)
 
 void CPlayer::Skill_1()
 {
-	m_pBullet->emplace_back(Create_Bullet());
+	int cnt = 20;
+	float angle = 0;
+	for (int i = 0; i < cnt; ++i) {
+		angle = i * (360.f / cnt);
+		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX, m_tInfo.fY, angle));
+	}
 }
