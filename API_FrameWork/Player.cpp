@@ -5,7 +5,7 @@
 
 
 CPlayer::CPlayer()
-	:m_iBulletCreateTime(100), m_BulletOldTime(GetTickCount()), m_GazeMaxTime(5000), m_OldGazeTime(GetTickCount()), m_iSkillCnt(5)
+	:m_iBulletCreateTime(100), m_BulletOldTime(GetTickCount()), m_GazeMaxTime(5000), m_OldGazeTime(GetTickCount()), m_iSkillCnt(5), m_bUnDead(false)
 {
 	ZeroMemory(&m_Points, sizeof(m_Points));
 }
@@ -52,11 +52,16 @@ void CPlayer::Initialize()
 
 int CPlayer::Update()
 {
-	//if (m_bDead)
-	//	return OBJ_DEAD;
+	if (m_bDead)
+		return OBJ_DEAD;
 
 	if (m_iHp < 1) {
-		m_iHp = 1;
+		if (m_bUnDead)
+			m_iHp = 1;
+		else {
+			m_iHp = 0;
+			m_bDead = true;
+		}
 	}
 
 	// 이동
@@ -123,6 +128,12 @@ int CPlayer::Update()
 
 		m_BulletOldTime = GetTickCount();
 		Skill_1();
+	}
+
+	// 무적모드 설정
+	if (GetAsyncKeyState('U'))
+	{
+		m_bUnDead = true;
 	}
 
 	Update_Rect();
