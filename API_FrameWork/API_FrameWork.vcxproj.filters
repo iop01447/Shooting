@@ -73,6 +73,9 @@
     <Filter Include="소스 파일\01.Obj\02.Monster\02. Foucus_Monster">
       <UniqueIdentifier>{1d87c19e-dff6-4cd0-9e46-72416444ef69}</UniqueIdentifier>
     </Filter>
+	<Filter Include="소스 파일\01.Obj\01.Bullet\01.RotationBullet">
+      <UniqueIdentifier>{47a05f6f-dceb-4d17-b161-b1bab8771b26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -147,6 +150,10 @@
     <ClInclude Include="Focus_Monster.h">
       <Filter>소스 파일\01.Obj\02.Monster\02. Foucus_Monster</Filter>
     </ClInclude>
+
+    <ClInclude Include="RotationBullet.h">
+      <Filter>소스 파일\01.Obj\01.Bullet\01.RotationBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -193,6 +200,10 @@
     </ClCompile>
     <ClCompile Include="Focus_Monster.cpp">
       <Filter>소스 파일\01.Obj\02.Monster\02. Foucus_Monster</Filter>
+    </ClCompile>
+
+    <ClCompile Include="RotationBullet.cpp">
+      <Filter>소스 파일\01.Obj\01.Bullet\01.RotationBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

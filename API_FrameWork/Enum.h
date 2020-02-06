@@ -12,7 +12,16 @@ namespace BULLET
 
 namespace OBJID
 {
-	enum ID { PLAYER, MONSTER, BOSS, BULLET, MOUSE, END };
+	enum ID { PLAYER, MONSTER, BOSS, BULLET, PLAYER_BULLET, MOUSE, END };
 }
+namespace BOSS
+{
+	enum STATE { P1_IDLE, END};
+}
+namespace MINIGUN
+{
+	enum ID { LEFT, RIGHT, END};
+}
+
 
 #endif // !__ENUM_H__

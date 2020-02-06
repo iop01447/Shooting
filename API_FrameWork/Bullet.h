@@ -27,6 +27,7 @@ private:
 	BULLET::SHAPE	m_eShape;
 
 
+
 };
 
 
