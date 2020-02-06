@@ -27,7 +27,10 @@ void CMainGame::Initialize()
 	dynamic_cast<CPlayer*>(m_listObj[OBJID::PLAYER].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
 
 	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
-	
+	m_listObj[OBJID::MONSTER].front()->Set_Target(m_listObj[OBJID::PLAYER].front());
+	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].front())->Set_Id(OBJID::MONSTER);
+	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+
 	m_listObj[OBJID::MOUSE].emplace_back(CAbstractFactory<CMouse>::Create());
 
 
@@ -48,6 +51,7 @@ void CMainGame::Initialize()
 
 void CMainGame::Update()
 {
+	float fX, fY;
 	for (int i = 0; i < OBJID::END; ++i)
 	{
 		auto& iter = m_listObj[i].begin();
@@ -63,7 +67,19 @@ void CMainGame::Update()
 				++iter;
 		}
 	}
+
+	/////////////////////Àâ¸÷ ·£´ý »ý¼º
+	int iTime = rand();
+	if (iTime % 500 == 0)
+	{
+		m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
+		m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+		dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Id(OBJID::MONSTER);
+		dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	}
+	////////////////////////
 }
+
 
 void CMainGame::Late_Update()
 {
@@ -73,7 +89,7 @@ void CMainGame::Late_Update()
 			pObj->Late_Update();
 	}
 
-	CCollisionMgr::Collision_Rect(m_listObj[OBJID::MONSTER], m_listObj[OBJID::BULLET]);
+	//CCollisionMgr::Collision_Rect(m_listObj[OBJID::MONSTER], m_listObj[OBJID::BULLET]);
 	CCollisionMgr::Collision_Sphere(m_listObj[OBJID::MOUSE], m_listObj[OBJID::BULLET]);
 }
 

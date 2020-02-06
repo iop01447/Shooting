@@ -3,7 +3,7 @@
 
 
 CObj::CObj()
-	: m_fSpeed(0.f), m_bDead(false), m_fAngle(0.f)
+	: m_fSpeed(0.f), m_bDead(false), m_fAngle(0.f), m_pTarget(nullptr)
 {
 	// 쓰레기값 초기화 방지를 위해 0초기화를 진행한다.
 	ZeroMemory(&m_tInfo, sizeof(m_tInfo));

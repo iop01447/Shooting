@@ -72,7 +72,6 @@ int CPlayer::Update()
 		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX+size, m_tInfo.fY-3*size));
 		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX-2*size, m_tInfo.fY));
 		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX+2*size, m_tInfo.fY));
-		//
 	}
 
 	if (GetAsyncKeyState('Q'))

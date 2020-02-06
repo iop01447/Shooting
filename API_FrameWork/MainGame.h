@@ -20,7 +20,6 @@ private:
 	HDC				m_DC;	// 그림을 그리기 위한 도화지
 	CObj*			m_pPlayer;
 
-	//list<CObj*>		m_listBullet;
 	list<CObj*>		m_listObj[OBJID::END];
 
 
