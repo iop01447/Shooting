@@ -26,10 +26,10 @@ public:
 	const RECT& Get_Rect() const { return m_tRect; }
 
 public:
-	void Set_Dead() { m_bDead = true; }
+	virtual void Set_Dead() { m_bDead = true; }
 	void Set_Pos(float _x, float _y);
 	void Set_Angle(float _fAngle) { m_fAngle = _fAngle; }
-	void Set_Color(int r, int g, int b);
+	HBRUSH Set_Color(int r, int g, int b);
 	void Set_PenColor(int r, int g, int b, int width = 1);
 	void Set_Pen_UnVisible();
 

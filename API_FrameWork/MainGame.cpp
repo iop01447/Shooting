@@ -81,6 +81,7 @@ void CMainGame::Late_Update()
 
 	CCollisionMgr::Collision_Rect(m_listObj[OBJID::MONSTER], m_listObj[OBJID::BULLET]);
 	CCollisionMgr::Collision_Sphere(m_listObj[OBJID::MOUSE], m_listObj[OBJID::BULLET]);
+	CCollisionMgr::Collision_Rect(m_listObj[OBJID::PLAYER], m_listObj[OBJID::BULLET]);
 }
 
 void CMainGame::Render()
@@ -99,9 +100,9 @@ void CMainGame::Render()
 		}
 	}
 
-	TCHAR szBuff[32] = L"";
-	wsprintf(szBuff, L"Bullet: %d", m_listObj[OBJID::BULLET].size());
-	TextOut(m_BackBufferDC, 50, 50, szBuff, lstrlen(szBuff));
+	//TCHAR szBuff[32] = L"";
+	//wsprintf(szBuff, L"Bullet: %d", m_listObj[OBJID::BULLET].size());
+	//TextOut(m_BackBufferDC, 50, 50, szBuff, lstrlen(szBuff));
 
 
 	++m_iFPS;

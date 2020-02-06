@@ -64,6 +64,7 @@ void CBullet::Set_Shape(BULLET::SHAPE _eShape)
 	case BULLET::SHAPE::ELLIPSE:
 		m_tInfo.iCX = 10;
 		m_tInfo.iCY = 30;
+		m_tInfo.fY -= 5;
 		break;
 	}
 }

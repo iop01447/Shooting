@@ -33,10 +33,10 @@ void CObj::Set_Pos(float _x, float _y)
 	m_tInfo.fY = _y;
 }
 
-void CObj::Set_Color(int r, int g, int b)
+HBRUSH CObj::Set_Color(int r, int g, int b)
 {
 	DeleteObject(m_Brush);
-	m_Brush = CreateSolidBrush(RGB(r, g, b));
+	return m_Brush = CreateSolidBrush(RGB(r, g, b));
 }
 
 void CObj::Set_PenColor(int r, int g, int b, int width)
