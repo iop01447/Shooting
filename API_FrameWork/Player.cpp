@@ -123,6 +123,8 @@ void CPlayer::Late_Update()
 
 void CPlayer::Render(HDC _DC)
 {
+	SelectObject(_DC, m_Pen);
+
 	// ∫Ò«‡±‚
 	SelectObject(_DC, Set_Color(55, 52, 235));
 	Polygon(_DC, m_Points, 4); 

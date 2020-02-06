@@ -30,12 +30,12 @@ void CMainGame::Initialize()
 	FillRect(m_BackBufferDC, &crt, GetSysColorBrush(COLOR_WINDOW));
 
 	m_listObj[OBJID::PLAYER].emplace_back(CAbstractFactory<CPlayer>::Create());
-	dynamic_cast<CPlayer*>(m_listObj[OBJID::PLAYER].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	dynamic_cast<CPlayer*>(m_listObj[OBJID::PLAYER].front())->Set_Bullet(&m_listObj[OBJID::PLAYER_BULLET]);
 
 	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
 	m_listObj[OBJID::MONSTER].front()->Set_Target(m_listObj[OBJID::PLAYER].front());
 	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].front())->Set_Id(OBJID::MONSTER);
-	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].front())->Set_Bullet(&m_listObj[OBJID::PLAYER_BULLET]);
+	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
 
 	m_listObj[OBJID::MOUSE].emplace_back(CAbstractFactory<CMouse>::Create());
 
@@ -111,8 +111,6 @@ void CMainGame::Render()
 	for (int i = 0; i < OBJID::END; ++i)
 	{
 		for (auto& pObj : m_listObj[i]) {
-			SelectObject(m_BackBufferDC, pObj->Get_Brush());
-			SelectObject(m_BackBufferDC, pObj->Get_Pen());
 			pObj->Render(m_BackBufferDC);
 		}
 	}
