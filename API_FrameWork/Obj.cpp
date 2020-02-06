@@ -8,11 +8,13 @@ CObj::CObj()
 	// 쓰레기값 초기화 방지를 위해 0초기화를 진행한다.
 	ZeroMemory(&m_tInfo, sizeof(m_tInfo));
 	ZeroMemory(&m_tRect, sizeof(m_tRect));
+	m_Brush = CreateSolidBrush(RGB(255, 255, 255));
 }
 
 
 CObj::~CObj()
 {
+	DeleteObject(m_Brush);
 }
 
 void CObj::Update_Rect()
@@ -27,4 +29,10 @@ void CObj::Set_Pos(float _x, float _y)
 {
 	m_tInfo.fX = _x;
 	m_tInfo.fY = _y;
+}
+
+void CObj::Set_Color(int r, int g, int b)
+{
+	DeleteObject(m_Brush);
+	m_Brush = CreateSolidBrush(RGB(r, g, b));
 }

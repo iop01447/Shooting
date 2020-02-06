@@ -26,6 +26,8 @@ void CPlayer::Initialize()
 	m_fSpeed = 5.f;
 
 	m_fAngle = 90.f;
+
+	Set_Color(255, 0, 0);
 }
 
 int CPlayer::Update()

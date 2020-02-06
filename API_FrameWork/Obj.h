@@ -29,6 +29,9 @@ public:
 	void Set_Dead() { m_bDead = true; }
 	void Set_Pos(float _x, float _y);
 	void Set_Angle(float _fAngle) { m_fAngle = _fAngle; }
+	void Set_Color(int r, int g, int b);
+
+	HBRUSH Get_Brush() { return m_Brush; }
 
 protected:
 	INFO	m_tInfo;		// 객체들의 좌표와 크기를 저장한다.
@@ -38,6 +41,8 @@ protected:
 	bool	m_bDead;
 
 	float	m_fAngle;
+
+	HBRUSH	m_Brush;
 };
 
 #endif // !__OBJ_H__

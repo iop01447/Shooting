@@ -92,8 +92,10 @@ void CMainGame::Render()
 
 	for (int i = 0; i < OBJID::END; ++i)
 	{
-		for (auto& pObj : m_listObj[i])
+		for (auto& pObj : m_listObj[i]) {
+			SelectObject(m_BackBufferDC, pObj->Get_Brush());
 			pObj->Render(m_BackBufferDC);
+		}
 	}
 
 	TCHAR szBuff[32] = L"";
