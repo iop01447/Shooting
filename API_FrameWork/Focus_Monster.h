@@ -1,23 +1,17 @@
 #pragma once
-
-#ifndef __MONSTER_H__
-#define __MONSTER_H__
-
-
 #include "Obj.h"
-class CMonster : public CObj
+
+class CFocus_Monster : public CObj
 {
 public:
-	CMonster();
-	virtual ~CMonster();
-
+	CFocus_Monster();
+	virtual ~CFocus_Monster();
 public:
 	virtual void Initialize();
 	virtual int Update();
 	virtual void Late_Update();
 	virtual void Render(HDC _DC);
 	virtual void Release();
-
 public:
 	CObj * Create_Bullet();
 	void Set_Bullet(list<CObj*>* _pBullet) { m_pMonsterBullet = _pBullet; }
@@ -29,16 +23,7 @@ public:
 		return pObj;
 	}
 
-	template <typename T>
-	CObj* Create_Bullet(float _Angle)
-	{
-		CObj* pObj = CAbstractFactory<T>::Create(m_tInfo.fX, m_tInfo.fY, _Angle);
-		return pObj;
-	}
-
 private:
 	list<CObj*>*	m_pMonsterBullet;
 };
 
-
-#endif // !__MONSTER_H__

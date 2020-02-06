@@ -29,6 +29,10 @@ private:
 	DWORD		m_dwTime;
 	int			m_iFPS;
 	TCHAR		m_szFPS[16];
+
+	int		m_MonsterMax;
+
+	int iTime;
 };
 
 

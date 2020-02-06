@@ -6,10 +6,12 @@
 #include "CollisionMgr.h"
 #include "Boss.h"
 #include "MiniGun.h"
+#include "Kamikaze.h"
+#include "Focus_Monster.h"
 
 
 CMainGame::CMainGame()
-	: m_pPlayer(nullptr), m_dwTime(GetTickCount()), m_iFPS(0), m_szFPS(L"")
+	: m_pPlayer(nullptr), m_dwTime(GetTickCount()), m_iFPS(0), m_szFPS(L""), m_MonsterMax(1), iTime(0)
 {
 }
 
@@ -34,12 +36,12 @@ void CMainGame::Initialize()
 
 	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
 	m_listObj[OBJID::MONSTER].front()->Set_Target(m_listObj[OBJID::PLAYER].front());
-	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].front())->Set_Id(OBJID::MONSTER);
 	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
 
 	m_listObj[OBJID::MOUSE].emplace_back(CAbstractFactory<CMouse>::Create());
 
 
+	/*
 	//보스생성코드 시작 -> 싫으면 주석처리
 	m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CBoss>::Create());	
 	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Boss(&m_listObj[OBJID::BOSS]);
@@ -51,13 +53,12 @@ void CMainGame::Initialize()
 	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Left(m_listObj[OBJID::BOSS].back());
 	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
 	//보스생성코드 끝 
-
+	*/
 	
 }
 
 void CMainGame::Update()
 {
-	float fX, fY;
 	for (int i = 0; i < OBJID::END; ++i)
 	{
 		auto& iter = m_listObj[i].begin();
@@ -74,16 +75,53 @@ void CMainGame::Update()
 		}
 	}
 
-	/////////////////////잡몹 랜덤 생성
+		if (iTime >= 190 && iTime % 190 == 0)
+		{
+			m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CFocus_Monster>::Create());
+			m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+			dynamic_cast<CFocus_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+
+			m_MonsterMax++;
+		}
+		//30초에 하나 생성
+		if (iTime >= 1950 && iTime % 1950 == 0)
+		{
+			m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CKamikaze>::Create());
+			m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+			m_MonsterMax++;
+		}
+
+		// 10초에 하나 생성
+		else if (iTime >= 650 && iTime % 650 == 0)
+		{
+			m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
+			m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+			dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+		}
+
+		iTime++;
+	/*
+	/////////////////////잡몹 랜덤 생성 ++한도 10마리
 	int iTime = rand();
-	if (iTime % 500 == 0)
+	if (m_MonsterMax < 10)
 	{
-		m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
-		m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
-		dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Id(OBJID::MONSTER);
-		dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+		if (iTime % 100 == 0)
+		{
+			m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CKamikaze>::Create());
+			m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+			m_MonsterMax++;
+		}
+		else if (iTime % 50 == 0)
+		{
+			m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
+			m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+			dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+			m_MonsterMax++;
+
+		}
 	}
 	////////////////////////
+	*/
 }
 
 
@@ -97,7 +135,9 @@ void CMainGame::Late_Update()
 
 	//CCollisionMgr::Collision_Rect(m_listObj[OBJID::MONSTER], m_listObj[OBJID::BULLET]);
 	CCollisionMgr::Collision_Sphere(m_listObj[OBJID::MOUSE], m_listObj[OBJID::BULLET]);
-	CCollisionMgr::Collision_Rect(m_listObj[OBJID::PLAYER], m_listObj[OBJID::BULLET]);
+	//CCollisionMgr::Collision_Rect(m_listObj[OBJID::PLAYER], m_listObj[OBJID::BULLET]);
+	//CCollisionMgr::Collision_Rect(m_listObj[OBJID::PLAYER], m_listObj[OBJID::MONSTER]);
+
 }
 
 void CMainGame::Render()
