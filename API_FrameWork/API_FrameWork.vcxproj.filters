@@ -46,6 +46,9 @@
     <Filter Include="소스 파일\01.Obj\30.Boss">
       <UniqueIdentifier>{5386ec63-be08-474b-8c41-7cc7d5a28212}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\01.Obj\31.MiniGun">
+      <UniqueIdentifier>{993226bf-ef7d-4cee-9eb2-48286d6b9950}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -105,6 +108,9 @@
     <ClInclude Include="Boss.h">
       <Filter>소스 파일\01.Obj\30.Boss</Filter>
     </ClInclude>
+    <ClInclude Include="MiniGun.h">
+      <Filter>소스 파일\01.Obj\31.MiniGun</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -136,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>소스 파일\01.Obj\30.Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGun.cpp">
+      <Filter>소스 파일\01.Obj\31.MiniGun</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
