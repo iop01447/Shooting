@@ -18,9 +18,9 @@ void CKamikaze::Initialize()
 	m_tInfo.iCY = 60;
 
 	m_fSpeed = 5.f;
+	m_iHp = 5;       //몬스터 최대 체력
 
 	Set_Color(255, 0, 0);
-	Set_Pen_UnVisible();
 }
 
 int CKamikaze::Update()
@@ -48,6 +48,8 @@ int CKamikaze::Update()
 
 void CKamikaze::Late_Update()
 {
+	if (0 >= m_iHp)
+		m_bDead = true;
 }
 
 void CKamikaze::Render(HDC _DC)

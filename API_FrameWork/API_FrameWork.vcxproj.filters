@@ -73,8 +73,23 @@
     <Filter Include="소스 파일\01.Obj\02.Monster\02. Foucus_Monster">
       <UniqueIdentifier>{1d87c19e-dff6-4cd0-9e46-72416444ef69}</UniqueIdentifier>
     </Filter>
-	<Filter Include="소스 파일\01.Obj\01.Bullet\01.RotationBullet">
-      <UniqueIdentifier>{47a05f6f-dceb-4d17-b161-b1bab8771b26}</UniqueIdentifier>
+    <Filter Include="소스 파일\01.Obj\01.Bullet\02. Monster_Bullet\01. Bounce_Ball">
+      <UniqueIdentifier>{cae989c5-33b2-4d90-b862-4ae88a742e13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Obj\02.Monster\04. Shotgun_Monster">
+      <UniqueIdentifier>{f6c96252-c255-42c1-bc85-dee12456dc6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Obj\02.Monster\03. Bounce_Monster">
+      <UniqueIdentifier>{38dd468b-f9c9-493c-a35f-010071c42757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Obj\02.Monster\05. shield_Monster">
+      <UniqueIdentifier>{551d2b30-e25c-4a3a-ba72-5564c488f21f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Obj\02.Monster\06. Trap_Monster">
+      <UniqueIdentifier>{afed0112-2667-4f90-b10d-6befac4828b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Obj\01.Bullet\02. Monster_Bullet\03. Trap">
+      <UniqueIdentifier>{93eed90a-9ba6-4b08-98f3-7ffee7ea884d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -150,9 +165,26 @@
     <ClInclude Include="Focus_Monster.h">
       <Filter>소스 파일\01.Obj\02.Monster\02. Foucus_Monster</Filter>
     </ClInclude>
-
     <ClInclude Include="RotationBullet.h">
-      <Filter>소스 파일\01.Obj\01.Bullet\01.RotationBullet</Filter>
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Bounce_Ball.h">
+      <Filter>소스 파일\01.Obj\01.Bullet\02. Monster_Bullet\01. Bounce_Ball</Filter>
+    </ClInclude>
+    <ClInclude Include="Bounce_Monster.h">
+      <Filter>소스 파일\01.Obj\02.Monster\03. Bounce_Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Shotgun_Monster.h">
+      <Filter>소스 파일\01.Obj\02.Monster\04. Shotgun_Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Shield_Monster.h">
+      <Filter>소스 파일\01.Obj\02.Monster\05. shield_Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Trap.h">
+      <Filter>소스 파일\01.Obj\01.Bullet\02. Monster_Bullet\03. Trap</Filter>
+    </ClInclude>
+    <ClInclude Include="Trap_Monster.h">
+      <Filter>소스 파일\01.Obj\02.Monster\06. Trap_Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -201,9 +233,26 @@
     <ClCompile Include="Focus_Monster.cpp">
       <Filter>소스 파일\01.Obj\02.Monster\02. Foucus_Monster</Filter>
     </ClCompile>
-
     <ClCompile Include="RotationBullet.cpp">
-      <Filter>소스 파일\01.Obj\01.Bullet\01.RotationBullet</Filter>
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Bounce_Ball.cpp">
+      <Filter>소스 파일\01.Obj\01.Bullet\02. Monster_Bullet\01. Bounce_Ball</Filter>
+    </ClCompile>
+    <ClCompile Include="Bounce_Monster.cpp">
+      <Filter>소스 파일\01.Obj\02.Monster\03. Bounce_Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Shotgun_Monster.cpp">
+      <Filter>소스 파일\01.Obj\02.Monster\04. Shotgun_Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Shield_Monster.cpp">
+      <Filter>소스 파일\01.Obj\02.Monster\05. shield_Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Trap.cpp">
+      <Filter>소스 파일\01.Obj\01.Bullet\02. Monster_Bullet\03. Trap</Filter>
+    </ClCompile>
+    <ClCompile Include="Trap_Monster.cpp">
+      <Filter>소스 파일\01.Obj\02.Monster\06. Trap_Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,11 @@
 #pragma once
 #include "Obj.h"
-
-class CFocus_Monster : public CObj
+class CTrap_Monster :
+	public CObj
 {
 public:
-	CFocus_Monster();
-	virtual ~CFocus_Monster();
+	CTrap_Monster();
+	virtual ~CTrap_Monster();
 public:
 	virtual void Initialize();
 	virtual int Update();
@@ -17,14 +17,13 @@ public:
 	void Set_Bullet(list<CObj*>* _pBullet) { m_pMonsterBullet = _pBullet; }
 
 	template <typename T>
-	CObj* Create_Bullet()
+	CObj* Create_Bullet(CObj*	_pTarget)
 	{
-		CObj* pObj = CAbstractFactory<T>::Create(m_tInfo.fX, m_tInfo.fY, m_fAngle);
+		CObj* pObj = CAbstractFactory<T>::Create(m_tInfo.fX, m_tInfo.fY, m_fAngle, _pTarget);
 		return pObj;
 	}
 
 private:
 	list<CObj*>*	m_pMonsterBullet;
-	POINT			m_tPosin;
 };
 

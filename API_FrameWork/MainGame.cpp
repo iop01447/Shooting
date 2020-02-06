@@ -8,10 +8,13 @@
 #include "MiniGun.h"
 #include "Kamikaze.h"
 #include "Focus_Monster.h"
-
+#include "Bounce_Monster.h"
+#include "Shotgun_Monster.h"
+#include "Shield_Monster.h"
+#include "Trap_Monster.h"
 
 CMainGame::CMainGame()
-	: m_pPlayer(nullptr), m_dwTime(GetTickCount()), m_iFPS(0), m_szFPS(L""), m_iStage(0), m_MonsterMax(1), iTime(0)
+	: m_pPlayer(nullptr), m_dwTime(GetTickCount()), m_iFPS(0), m_szFPS(L""), m_iStage(0), iTime(0)
 {
 }
 
@@ -34,29 +37,11 @@ void CMainGame::Initialize()
 	m_listObj[OBJID::PLAYER].emplace_back(CAbstractFactory<CPlayer>::Create());
 	dynamic_cast<CPlayer*>(m_listObj[OBJID::PLAYER].front())->Set_Bullet(&m_listObj[OBJID::PLAYER_BULLET]);
 
-	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
-	m_listObj[OBJID::MONSTER].front()->Set_Target(m_listObj[OBJID::PLAYER].front());
-	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	//m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
+	//m_listObj[OBJID::MONSTER].front()->Set_Target(m_listObj[OBJID::PLAYER].front());
+	//dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
 
-	m_listObj[OBJID::MOUSE].emplace_back(CAbstractFactory<CMouse>::Create());
-
-
-	/*
-	//보스생성코드 시작 -> 싫으면 주석처리
-	/*m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CBoss>::Create());	
-	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Boss(&m_listObj[OBJID::BOSS]);
-	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
-	m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CMiniGun>::Create(WINCX/2+MINIGUN_DIS, 200.f)); 
-	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Right(m_listObj[OBJID::BOSS].back());
-	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
-	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Id(MINIGUN::RIGHT);
-	m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CMiniGun>::Create(WINCX / 2 - MINIGUN_DIS, 200.f));
-	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Left(m_listObj[OBJID::BOSS].back());
-	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
-	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Id(MINIGUN::LEFT);*/
-	//보스생성코드 끝 
-	*/
-	
+	m_listObj[OBJID::MOUSE].emplace_back(CAbstractFactory<CMouse>::Create());	
 }
 
 void CMainGame::Update()
@@ -77,79 +62,46 @@ void CMainGame::Update()
 		}
 	}
 
-		if (iTime >= 190 && iTime % 190 == 0)
-		{
-			m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CFocus_Monster>::Create());
-			m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
-			dynamic_cast<CFocus_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
-
-			m_MonsterMax++;
-		}
-		//30초에 하나 생성
-		if (iTime >= 1950 && iTime % 1950 == 0)
-		{
-			m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CKamikaze>::Create());
-			m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
-			m_MonsterMax++;
-		}
-
-		// 10초에 하나 생성
-		else if (iTime >= 650 && iTime % 650 == 0)
-		{
-			m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
-			m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
-			dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
-		}
-
-		iTime++;
-	/*
-	/////////////////////잡몹 랜덤 생성 ++한도 10마리
-	int iTime = rand();
-	if (m_MonsterMax < 10)
-	{
-		if (iTime % 100 == 0)
-		{
-			m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CKamikaze>::Create());
-			m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
-			m_MonsterMax++;
-		}
-		else if (iTime % 50 == 0)
-		{
-			m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
-			m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
-			dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
-			m_MonsterMax++;
-
-		}
-	///////////////////////잡몹 랜덤 생성
-	//int iTime = rand();
-	//if (iTime % 500 == 0)
-	//{
-	//	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
-	//	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
-	//	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Id(OBJID::MONSTER);
-	//	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
-	//}
-	////////////////////////
-
+	////////////////스테이지////////////몬스터 생성
 	if (m_listObj[OBJID::MONSTER].empty() && m_listObj[OBJID::BOSS].empty())
 	{
 		switch (m_iStage)
 		{
 		case 0:
-			Generate_Monster_0();
+			Spwan_Kamikaze_Monster(float(WINCX - 100), 0.f);
+			Spwan_Kamikaze_Monster(float(100), 0.f);
+
+			Spwan_Normal_Monster(float(WINCX / 2), 0.f);
+			Spwan_Normal_Monster(float(WINCX - 100), 0.f);
+			Spwan_Normal_Monster(float(100), 0.f);
 			break;
 		case 1:
-			Generate_Monster_0();
+			Spwan_Focus_Monster(float(WINCX / 2), 0.f);
+			Spwan_Focus_Monster(float(WINCX - 100), 0.f);
+			Spwan_Focus_Monster(float(100), 0.f);
+
+			Spwan_Shield_Monster(float(WINCX / 2), 25.f);
+			Spwan_Shield_Monster(float(WINCX - 100), 25.f);
+			Spwan_Bounce_Monster(float(WINCX - 100), 0.f);
+			Spwan_Shield_Monster(float(100), 0.f);
 			break;
 		case 2:
-			Generate_Monster_0();
+			Spwan_Bounce_Monster(float(WINCX - 100), 0.f);
+			Spwan_Shield_Monster(float(WINCX - 100), 0.f);
+			Spwan_Bounce_Monster(float(100), 0.f);
+			Spwan_Shield_Monster(float(100), 0.f);
+			Spwan_Focus_Monster(float(WINCX / 4 *1), 0.f);
+			Spwan_Focus_Monster(float(WINCX - 100), 0.f);
+			Spwan_Focus_Monster(float(WINCX /4*3), 0.f);
+			Spwan_Focus_Monster(float(100), 0.f);
 			break;
 		case 3:
-			Generate_Boss();
+			Spwan_Trap_Monster(float(100), 0.f);
 			break;
 		case 4:
-			//게임 종료
+			Generate_Boss();
+			return;
+		case 5:
 			return;
 		}
 		++m_iStage;
@@ -165,12 +117,10 @@ void CMainGame::Late_Update()
 			pObj->Late_Update();
 	}
 
-	//CCollisionMgr::Collision_Rect(m_listObj[OBJID::MONSTER], m_listObj[OBJID::BULLET]);
-	//CCollisionMgr::Collision_Sphere(m_listObj[OBJID::MOUSE], m_listObj[OBJID::BULLET]);
 	CCollisionMgr::Collision_Rect(m_listObj[OBJID::PLAYER], m_listObj[OBJID::BULLET]);
 	CCollisionMgr::Collision_Rect(m_listObj[OBJID::MONSTER], m_listObj[OBJID::PLAYER_BULLET]);
-	CCollisionMgr::Collision_Rect(m_listObj[OBJID::BOSS], m_listObj[OBJID::PLAYER_BULLET]);
-	
+	CCollisionMgr::Collision_Rect(m_listObj[OBJID::PLAYER], m_listObj[OBJID::MONSTER]);
+	CCollisionMgr::Collision_Rect(m_listObj[OBJID::BOSS], m_listObj[OBJID::PLAYER_BULLET]);	
 }
 
 void CMainGame::Render()
@@ -188,11 +138,6 @@ void CMainGame::Render()
 			pObj->Render(m_BackBufferDC);
 		}
 	}
-
-	//TCHAR szBuff[32] = L"";
-	//wsprintf(szBuff, L"Bullet: %d", m_listObj[OBJID::BULLET].size());
-	//TextOut(m_BackBufferDC, 50, 50, szBuff, lstrlen(szBuff));
-
 
 	++m_iFPS;
 	if (m_dwTime + 1000 < GetTickCount())
@@ -235,10 +180,50 @@ void CMainGame::Generate_Boss()
 	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Id(MINIGUN::LEFT);
 }
 
-void CMainGame::Generate_Monster_0()
+void CMainGame::Spwan_Normal_Monster(float _fX, float _fY)
 {
-	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
+	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create(_fX, _fY));
 	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
-	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Id(OBJID::MONSTER);
 	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+}
+
+void CMainGame::Spwan_Kamikaze_Monster(float _fX, float _fY)
+{
+	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CKamikaze>::Create(_fX, _fY));
+	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+}
+
+void CMainGame::Spwan_Focus_Monster(float _fX, float _fY)
+{
+	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CFocus_Monster>::Create(_fX, _fY));
+	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+	dynamic_cast<CFocus_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+}
+
+void CMainGame::Spwan_Bounce_Monster(float _fX, float _fY)
+{
+	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CBounce_Monster>::Create(_fX, _fY));
+	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+	dynamic_cast<CBounce_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+}
+
+void CMainGame::Spwan_Shotgun_Monster(float _fX, float _fY)
+{
+	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CShotgun_Monster>::Create(_fX, _fY));
+	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+	dynamic_cast<CShotgun_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+}
+
+void CMainGame::Spwan_Shield_Monster(float _fX, float _fY)
+{
+	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CShield_Monster>::Create(_fX, _fY));
+	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+	dynamic_cast<CShield_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+}
+
+void CMainGame::Spwan_Trap_Monster(float _fX, float _fY)
+{
+	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CTrap_Monster>::Create(_fX, _fY));
+	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+	dynamic_cast<CTrap_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
 }

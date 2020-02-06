@@ -17,7 +17,17 @@ public:
 	void Release();		// 메모리 해제 함수
 
 	void Generate_Boss(); //보스 생성
-	void Generate_Monster_0();
+
+public:
+	//몬스터
+	void Spwan_Normal_Monster(float _fX, float _fY);
+	void Spwan_Kamikaze_Monster(float _fX, float _fY);
+	void Spwan_Focus_Monster(float _fX, float _fY);
+	void Spwan_Bounce_Monster(float _fX, float _fY);
+	void Spwan_Shotgun_Monster(float _fX, float _fY);
+	void Spwan_Shield_Monster(float _fX, float _fY);
+	void Spwan_Trap_Monster(float _fX, float _fY);
+
 
 private:
 	HDC				m_DC;	// 그림을 그리기 위한 도화지

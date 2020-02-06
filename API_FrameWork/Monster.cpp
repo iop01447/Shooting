@@ -3,8 +3,6 @@
 #include "Bullet.h"
 #include "Rect.h"
 #include "MinAoe.h"
-#include "MaxAoe.h"
-#include "Shotgun.h"
 
 CMonster::CMonster()
 {
@@ -22,8 +20,8 @@ void CMonster::Initialize()
 	m_tInfo.iCX = 60;
 	m_tInfo.iCY = 60;
 
-	m_iHp = 20;       //몬스터 최대 체력
-	m_fSpeed = 3.f;
+	m_iHp = 10;       //몬스터 최대 체력
+	m_fSpeed = 3.25f;
 }
 
 int CMonster::Update()
@@ -47,13 +45,7 @@ int CMonster::Update()
 
 
 	//////////////총알발사 --> 하드코딩 수정필요
-	if (iTime % 1300 >= 0 && iTime % 1300 <= 10)
-	{
-		m_pMonsterBullet->emplace_back(Create_Bullet<CBullet>());
-		m_pMonsterBullet->emplace_back(Create_Bullet<CBullet>(m_fAngle + 30.f));
-		m_pMonsterBullet->emplace_back(Create_Bullet<CBullet>(m_fAngle - 30.f));
-	}
-	else if (iTime % 1300 >= 11 && iTime % 1300 <= 13) // 12갈래총알
+	if (iTime % 1300 >= 11 && iTime % 1300 <= 13) // 12갈래총알
 	{
 		m_pMonsterBullet->emplace_back(Create_Bullet<CBullet>());
 		m_pMonsterBullet->emplace_back(Create_Bullet<CBullet>(m_fAngle + 30.f));

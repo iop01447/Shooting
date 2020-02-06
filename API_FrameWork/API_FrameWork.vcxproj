@@ -147,6 +147,8 @@
   <ItemGroup>
     <ClInclude Include="API_FrameWork.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="Bounce_Monster.h" />
+    <ClInclude Include="Bounce_Ball.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="CollisionMgr.h" />
@@ -167,13 +169,19 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="RotationBullet.h" />
+    <ClInclude Include="Shield_Monster.h" />
+    <ClInclude Include="Shotgun_Monster.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Trap.h" />
+    <ClInclude Include="Trap_Monster.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Bounce_Monster.cpp" />
+    <ClCompile Include="Bounce_Ball.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Focus_Monster.cpp" />
@@ -187,12 +195,16 @@
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RotationBullet.cpp" />
+    <ClCompile Include="Shield_Monster.cpp" />
+    <ClCompile Include="Shotgun_Monster.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Trap.cpp" />
+    <ClCompile Include="Trap_Monster.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="API_FrameWork.rc" />

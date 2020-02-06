@@ -1,11 +1,11 @@
 #pragma once
 #include "Obj.h"
-
-class CFocus_Monster : public CObj
+class CShield_Monster :
+	public CObj
 {
 public:
-	CFocus_Monster();
-	virtual ~CFocus_Monster();
+	CShield_Monster();
+	virtual ~CShield_Monster();
 public:
 	virtual void Initialize();
 	virtual int Update();
@@ -25,6 +25,7 @@ public:
 
 private:
 	list<CObj*>*	m_pMonsterBullet;
-	POINT			m_tPosin;
+	int m_iColor[3];
+
 };
 
