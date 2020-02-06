@@ -18,6 +18,7 @@ void CMonster::Initialize()
 	m_tInfo.iCX = 60;
 	m_tInfo.iCY = 60;
 
+	m_iHp = 20;       //몬스터 최대 체력
 	m_fSpeed = 3.f;
 }
 
@@ -89,6 +90,8 @@ int CMonster::Update()
 
 void CMonster::Late_Update()
 {
+	if (0 >= m_iHp)
+		m_bDead = true;
 }
 
 void CMonster::Render(HDC _DC)
