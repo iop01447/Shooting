@@ -19,7 +19,7 @@ void CTrap_Monster::Initialize()
 	m_tInfo.fY = 1.f;
 	m_tInfo.iCX = 50;
 	m_tInfo.iCY = 50;
-	m_iHp = 85;       //몬스터 최대 체력
+	m_iHp = 20;       //몬스터 최대 체력
 
 	m_fSpeed = 4.f;
 }
@@ -67,7 +67,7 @@ int CTrap_Monster::Update()
 
 
 	//////////////총알발사
-	if (iTime % 650 >= 0 && iTime % 650 <= 10)
+	if (iTime % 650 >= 0 && iTime % 650 <= 15)
 	{
 		m_pMonsterBullet->emplace_back(Create_Bullet<CTrap>(m_pTarget));
 	}

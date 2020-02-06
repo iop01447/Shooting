@@ -13,7 +13,6 @@ public:
 	virtual void Render(HDC _DC);
 	virtual void Release();
 public:
-	CObj * Create_Bullet();
 	void Set_Bullet(list<CObj*>* _pBullet) { m_pMonsterBullet = _pBullet; }
 
 	template <typename T>
