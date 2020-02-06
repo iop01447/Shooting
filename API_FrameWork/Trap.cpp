@@ -26,7 +26,7 @@ int CTrap::Update()
 	if (m_bDead)
 		return OBJ_DEAD;
 
-	if (iCheck != 25)
+	if (iCheck != 50)
 	{
 		float fX = 0.f, fY = 0.f, fDis = 0.f;
 		fX = m_pTarget->Get_Info().fX - m_tInfo.fX;
