@@ -33,6 +33,8 @@ void CBoss::Initialize()
 	m_fAngleSpeed = 1.f;
 	m_fLeftSpeed = -1.f;
 	m_fRightSpeed = 1.f;
+
+	m_iHp = BOSS_MAX_HP;
 	
 	m_eState = BOSS::P1_IDLE;
 }
@@ -96,6 +98,9 @@ void CBoss::Render(HDC _DC)
 	LineTo(_DC, m_tInfo.fX + fHalf_Diag*cosf((225.f + m_fAngle)*PI / 180.f), m_tInfo.fY - fHalf_Diag*sinf((225.f + m_fAngle)*PI / 180.f));
 	LineTo(_DC, m_tInfo.fX + fHalf_Diag*cosf((315.f + m_fAngle)*PI / 180.f), m_tInfo.fY - fHalf_Diag*sinf((315.f + m_fAngle)*PI / 180.f));
 	LineTo(_DC, m_tInfo.fX + fHalf_Diag*cosf((45.f + m_fAngle)*PI / 180.f), m_tInfo.fY - fHalf_Diag*sinf((45.f + m_fAngle)*PI / 180.f));
+
+	//Ã¼·Â¹Ù
+	
 
 }
 

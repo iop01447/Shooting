@@ -25,6 +25,7 @@ public:
 private:
 	BULLET::DIR		m_eDir;
 	BULLET::SHAPE	m_eShape;
+
 };
 
 

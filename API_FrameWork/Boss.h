@@ -7,6 +7,7 @@
 #define POSIN_HEIGHT 80.f
 #define ARM_HWIDTH 25.f
 #define MINIGUN_DIS (ARM_LENGTH+0.f)
+#define BOSS_MAX_HP 1000
 
 class MiniGun;
 class CBoss :

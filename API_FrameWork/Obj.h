@@ -34,9 +34,11 @@ public:
 	void Set_Pen_UnVisible();
 	void Add_Angle(float _fAngle) { m_fAngle += _fAngle; }
 	void Damage_Hp(int _iDamage) { m_iHp -= _iDamage; }
+	int Get_Damage() { return m_iDamage; }
 	void Set_Speed(float _fSpeed) { m_fSpeed = _fSpeed; }
 	void Set_AngleSpeed(float _fAngleSpeed) { m_fAngleSpeed = _fAngleSpeed; }
 	float Get_Angle() { return m_fAngle; }
+
 
 	HBRUSH Get_Brush() { return m_Brush; }
 	HPEN Get_Pen() { return m_Pen; }
@@ -56,6 +58,7 @@ protected:
 	float	m_fAngleSpeed;
 
 	int		m_iHp;
+	int		m_iDamage;
 };
 
 #endif // !__OBJ_H__

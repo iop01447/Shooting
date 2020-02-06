@@ -12,7 +12,7 @@ CCollisionMgr::~CCollisionMgr()
 {
 }
 
-void CCollisionMgr::Collision_Rect(list<CObj*>& _Dst, list<CObj*>& _Src)
+void CCollisionMgr::Collision_Rect(list<CObj*>& _Dst, list<CObj*>& _Src) //앞에 플레이어 or 몬스터 뒤에 불렛
 {
 	RECT rc = {};
 
@@ -22,7 +22,7 @@ void CCollisionMgr::Collision_Rect(list<CObj*>& _Dst, list<CObj*>& _Src)
 		{
 			if (IntersectRect(&rc, &(Dst->Get_Rect()), &(Src->Get_Rect())))
 			{
-				Dst->Set_Dead();
+				Dst->Damage_Hp(Src->Get_Damage());
 				Src->Set_Dead();
 			}
 		}
