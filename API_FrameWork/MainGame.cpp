@@ -21,7 +21,13 @@ CMainGame::~CMainGame()
 
 void CMainGame::Initialize()
 {
+	RECT crt;
+	GetClientRect(g_hWnd, &crt);
 	m_DC = GetDC(g_hWnd);
+	m_BackBufferDC = CreateCompatibleDC(m_DC);
+	m_hBit = CreateCompatibleBitmap(m_DC, crt.right, crt.bottom);
+	m_OldBit = (HBITMAP)SelectObject(m_BackBufferDC, m_hBit);
+	FillRect(m_BackBufferDC, &crt, GetSysColorBrush(COLOR_WINDOW));
 
 	m_listObj[OBJID::PLAYER].emplace_back(CAbstractFactory<CPlayer>::Create());
 	dynamic_cast<CPlayer*>(m_listObj[OBJID::PLAYER].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
@@ -79,18 +85,20 @@ void CMainGame::Late_Update()
 
 void CMainGame::Render()
 {
-	Rectangle(m_DC, 0, 0, WINCX, WINCY);
-	Rectangle(m_DC, 25, 25, WINCX - 25, WINCY - 25);
+	m_OldBit = (HBITMAP)SelectObject(m_BackBufferDC, m_hBit);
+
+	Rectangle(m_BackBufferDC, 0, 0, WINCX, WINCY);
+	Rectangle(m_BackBufferDC, 25, 25, WINCX - 25, WINCY - 25);
 
 	for (int i = 0; i < OBJID::END; ++i)
 	{
 		for (auto& pObj : m_listObj[i])
-			pObj->Render(m_DC);
+			pObj->Render(m_BackBufferDC);
 	}
 
 	TCHAR szBuff[32] = L"";
 	wsprintf(szBuff, L"Bullet: %d", m_listObj[OBJID::BULLET].size());
-	TextOut(m_DC, 50, 50, szBuff, lstrlen(szBuff));
+	TextOut(m_BackBufferDC, 50, 50, szBuff, lstrlen(szBuff));
 
 
 	++m_iFPS;
@@ -102,11 +110,15 @@ void CMainGame::Render()
 		m_iFPS = 0;
 		m_dwTime = GetTickCount();
 	}
+
+	BitBlt(m_DC, 0, 0, WINCX, WINCY, m_BackBufferDC, 0, 0, SRCCOPY);
+	SelectObject(m_BackBufferDC, m_OldBit);
 }
 
 void CMainGame::Release()
 {
 	ReleaseDC(g_hWnd, m_DC);
+	ReleaseDC(g_hWnd, m_BackBufferDC);
 
 	for (int i = 0; i < OBJID::END; ++i)
 	{
