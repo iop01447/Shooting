@@ -30,8 +30,11 @@ public:
 	void Set_Pos(float _x, float _y);
 	void Set_Angle(float _fAngle) { m_fAngle = _fAngle; }
 	void Set_Color(int r, int g, int b);
+	void Set_PenColor(int r, int g, int b, int width = 1);
+	void Set_Pen_UnVisible();
 
 	HBRUSH Get_Brush() { return m_Brush; }
+	HPEN Get_Pen() { return m_Pen; }
 
 protected:
 	INFO	m_tInfo;		// 객체들의 좌표와 크기를 저장한다.
@@ -43,6 +46,7 @@ protected:
 	float	m_fAngle;
 
 	HBRUSH	m_Brush;
+	HPEN	m_Pen;
 };
 
 #endif // !__OBJ_H__

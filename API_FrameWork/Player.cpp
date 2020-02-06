@@ -28,6 +28,7 @@ void CPlayer::Initialize()
 	m_fAngle = 90.f;
 
 	Set_Color(255, 0, 0);
+	Set_Pen_UnVisible();
 }
 
 int CPlayer::Update()

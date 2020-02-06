@@ -94,6 +94,7 @@ void CMainGame::Render()
 	{
 		for (auto& pObj : m_listObj[i]) {
 			SelectObject(m_BackBufferDC, pObj->Get_Brush());
+			SelectObject(m_BackBufferDC, pObj->Get_Pen());
 			pObj->Render(m_BackBufferDC);
 		}
 	}

@@ -9,12 +9,14 @@ CObj::CObj()
 	ZeroMemory(&m_tInfo, sizeof(m_tInfo));
 	ZeroMemory(&m_tRect, sizeof(m_tRect));
 	m_Brush = CreateSolidBrush(RGB(255, 255, 255));
+	m_Pen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
 }
 
 
 CObj::~CObj()
 {
 	DeleteObject(m_Brush);
+	DeleteObject(m_Pen);
 }
 
 void CObj::Update_Rect()
@@ -35,4 +37,16 @@ void CObj::Set_Color(int r, int g, int b)
 {
 	DeleteObject(m_Brush);
 	m_Brush = CreateSolidBrush(RGB(r, g, b));
+}
+
+void CObj::Set_PenColor(int r, int g, int b, int width)
+{
+	DeleteObject(m_Pen);
+	m_Pen = CreatePen(PS_SOLID, width, RGB(r, g, b));
+}
+
+void CObj::Set_Pen_UnVisible()
+{
+	DeleteObject(m_Pen);
+	m_Pen = CreatePen(PS_NULL, 1, RGB(0,0,0));
 }
