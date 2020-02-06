@@ -35,7 +35,7 @@ void CMainGame::Initialize()
 	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
 	m_listObj[OBJID::MONSTER].front()->Set_Target(m_listObj[OBJID::PLAYER].front());
 	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].front())->Set_Id(OBJID::MONSTER);
-	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].front())->Set_Bullet(&m_listObj[OBJID::PLAYER_BULLET]);
 
 	m_listObj[OBJID::MOUSE].emplace_back(CAbstractFactory<CMouse>::Create());
 
@@ -98,6 +98,7 @@ void CMainGame::Late_Update()
 	//CCollisionMgr::Collision_Rect(m_listObj[OBJID::MONSTER], m_listObj[OBJID::BULLET]);
 	CCollisionMgr::Collision_Sphere(m_listObj[OBJID::MOUSE], m_listObj[OBJID::BULLET]);
 	CCollisionMgr::Collision_Rect(m_listObj[OBJID::PLAYER], m_listObj[OBJID::BULLET]);
+	CCollisionMgr::Collision_Rect(m_listObj[OBJID::MONSTER], m_listObj[OBJID::PLAYER_BULLET]);
 }
 
 void CMainGame::Render()

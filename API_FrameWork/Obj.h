@@ -25,7 +25,7 @@ public:
 	const INFO& Get_Info() const { return m_tInfo; }
 	const RECT& Get_Rect() const { return m_tRect; }
 public:
-	virtual void Set_Dead() { m_bDead = true; }
+	void Set_Dead() { m_bDead = true; }
 	void Set_Pos(float _x, float _y);
 	void Set_Angle(float _fAngle) { m_fAngle = _fAngle; }
 	void Set_Target(CObj* _pTarget) { m_pTarget = _pTarget; }
