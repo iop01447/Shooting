@@ -12,5 +12,9 @@ namespace OBJID
 {
 	enum ID { PLAYER, MONSTER, BOSS, BULLET, MOUSE, END };
 }
+namespace BOSS
+{
+	enum STATE { P1_IDLE, END};
+}
 
 #endif // !__ENUM_H__

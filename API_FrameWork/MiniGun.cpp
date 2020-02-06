@@ -28,9 +28,9 @@ void CMiniGun::Initialize()
 
 int CMiniGun::Update()
 {
-	m_fAngle += 1;
-	if ((int)m_fAngle % 20 == 0)
-		Shoot_Basic();
+
+	/*if ((int)m_fAngle % 20 == 0)
+		Shoot_Basic();*/
 	Update_Rect();
 	return OBJ_NOEVENT;
 }

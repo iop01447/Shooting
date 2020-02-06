@@ -29,6 +29,13 @@ public:
 	CObj* Create_Bullet(float x, float y);
 	void Set_Bullet(list<CObj*>* _pBullet) { m_pBullet = _pBullet; }
 
+	void MiniGun_Update();
+	void Rotate_Body(float _fAngle);
+	void Rotate_Right(float _fAngle);
+	void Rotate_Left(float _fAngle);
+
+	void State_P1_Idle();
+
 private:
 	list<CObj*>*	m_pBullet;
 	list<CObj*>*	 m_pBoss;
@@ -37,5 +44,11 @@ private:
 	CObj*			m_pRight;
 	float			m_fLeftAngle;
 	float			m_fRightAngle;
+	float			m_fLeftSpeed;
+	float			m_fRightSpeed;
+	BOSS::STATE		m_eState;
+	BOSS::STATE		m_eStatePrev;
+	int				m_iTick;
+	//int				m_iTickStart;
 };
 

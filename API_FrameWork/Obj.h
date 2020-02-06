@@ -29,6 +29,11 @@ public:
 	void Set_Dead() { m_bDead = true; }
 	void Set_Pos(float _x, float _y);
 	void Set_Angle(float _fAngle) { m_fAngle = _fAngle; }
+	void Add_Angle(float _fAngle) { m_fAngle += _fAngle; }
+	void Damage_Hp(int _iDamage) { m_iHp -= _iDamage; }
+	void Set_Speed(float _fSpeed) { m_fSpeed = _fSpeed; }
+	void Set_AngleSpeed(float _fAngleSpeed) { m_fAngleSpeed = _fAngleSpeed; }
+	float Get_Angle() { return m_fAngle; }
 
 protected:
 	INFO	m_tInfo;		// 객체들의 좌표와 크기를 저장한다.
@@ -38,6 +43,9 @@ protected:
 	bool	m_bDead;
 
 	float	m_fAngle;
+	float	m_fAngleSpeed;
+
+	int		m_iHp;
 };
 
 #endif // !__OBJ_H__
