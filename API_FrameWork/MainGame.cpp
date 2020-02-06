@@ -30,7 +30,7 @@ void CMainGame::Initialize()
 	FillRect(m_BackBufferDC, &crt, GetSysColorBrush(COLOR_WINDOW));
 
 	m_listObj[OBJID::PLAYER].emplace_back(CAbstractFactory<CPlayer>::Create());
-	dynamic_cast<CPlayer*>(m_listObj[OBJID::PLAYER].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	dynamic_cast<CPlayer*>(m_listObj[OBJID::PLAYER].front())->Set_Bullet(&m_listObj[OBJID::PLAYER_BULLET]);
 
 	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
 	m_listObj[OBJID::MONSTER].front()->Set_Target(m_listObj[OBJID::PLAYER].front());
@@ -98,7 +98,7 @@ void CMainGame::Late_Update()
 	//CCollisionMgr::Collision_Rect(m_listObj[OBJID::MONSTER], m_listObj[OBJID::BULLET]);
 	//CCollisionMgr::Collision_Sphere(m_listObj[OBJID::MOUSE], m_listObj[OBJID::BULLET]);
 	CCollisionMgr::Collision_Rect(m_listObj[OBJID::PLAYER], m_listObj[OBJID::BULLET]);
-	CCollisionMgr::Collision_Rect(m_listObj[OBJID::BOSS], m_listObj[OBJID::BULLET]);
+	CCollisionMgr::Collision_Rect(m_listObj[OBJID::MONSTER], m_listObj[OBJID::PLAYER_BULLET]);
 }
 
 void CMainGame::Render()

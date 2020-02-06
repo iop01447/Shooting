@@ -25,7 +25,6 @@ private:
 
 public:
 	void Set_Bullet(list<CObj*>* _pBullet) { m_pBullet = _pBullet; }
-	virtual void Set_Dead() { m_hp -= 1; if (m_hp < 1) m_bDead = true; }
 
 public:
 	void Update_Polygon();
@@ -44,8 +43,6 @@ private:
 
 	POINT			m_Points[4];
 	POINT			m_StarPos[11];
-
-	int				m_hp;
 };
 
 #endif // !__PLAYER_H__

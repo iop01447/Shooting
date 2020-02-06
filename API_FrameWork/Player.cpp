@@ -4,7 +4,7 @@
 
 
 CPlayer::CPlayer()
-	:m_iBulletCreateTime(100), m_OldTime(GetTickCount()), m_hp(5)
+	:m_iBulletCreateTime(100), m_OldTime(GetTickCount())
 {
 	ZeroMemory(&m_Points, sizeof(m_Points));
 }
@@ -45,12 +45,18 @@ void CPlayer::Initialize()
 		m_StarPos[i].x *= 0.1;
 		m_StarPos[i].y *= 0.1;
 	}
+
+	m_iHp = 5;
 }
 
 int CPlayer::Update()
 {
 	if (m_bDead)
 		return OBJ_DEAD;
+
+	if (m_iHp < 1) {
+		m_iHp = 1;
+	}
 
 	// ÀÌµ¿
 	if (GetAsyncKeyState(VK_LEFT))
@@ -124,7 +130,7 @@ void CPlayer::Render(HDC _DC)
 
 	// ¸ñ¼û
 	SelectObject(_DC, Set_Color(255, 0, 0));
-	for (int i = 0; i < m_hp; ++i) {
+	for (int i = 0; i < m_iHp; ++i) {
 		Draw_Star(_DC, 50 + i*25, 45);
 	}
 }
