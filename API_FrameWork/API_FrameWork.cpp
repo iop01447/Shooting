@@ -39,6 +39,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_API_FRAMEWORK));
 
+	srand(unsigned int(time(NULL)));
+
     MSG msg;
 	msg.message = WM_NULL;
 
