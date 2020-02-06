@@ -33,6 +33,8 @@ void CBoss::Initialize()
 
 int CBoss::Update()
 {
+
+	/*m_pLeft->Set_Pos()*/
 	Update_Rect();
 
 	return OBJ_NOEVENT;
