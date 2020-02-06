@@ -18,6 +18,9 @@ public:
 
 private:
 	HDC				m_DC;	// 그림을 그리기 위한 도화지
+	HDC				m_BackBufferDC;	
+	HBITMAP			m_hBit, m_OldBit;
+
 	CObj*			m_pPlayer;
 
 	list<CObj*>		m_listObj[OBJID::END];

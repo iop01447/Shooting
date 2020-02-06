@@ -25,10 +25,16 @@ public:
 	const INFO& Get_Info() const { return m_tInfo; }
 	const RECT& Get_Rect() const { return m_tRect; }
 public:
-	void Set_Dead() { m_bDead = true; }
+	virtual void Set_Dead() { m_bDead = true; }
 	void Set_Pos(float _x, float _y);
 	void Set_Angle(float _fAngle) { m_fAngle = _fAngle; }
 	void Set_Target(CObj* _pTarget) { m_pTarget = _pTarget; }
+	HBRUSH Set_Color(int r, int g, int b);
+	void Set_PenColor(int r, int g, int b, int width = 1);
+	void Set_Pen_UnVisible();
+
+	HBRUSH Get_Brush() { return m_Brush; }
+	HPEN Get_Pen() { return m_Pen; }
 
 protected:
 	INFO	m_tInfo;		// 객체들의 좌표와 크기를 저장한다.
@@ -39,6 +45,9 @@ protected:
 	bool	m_bDead;
 
 	float	m_fAngle;
+
+	HBRUSH	m_Brush;
+	HPEN	m_Pen;
 };
 
 #endif // !__OBJ_H__
