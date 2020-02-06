@@ -59,6 +59,8 @@ private:
 	DWORD			m_OldGazeTime;
 
 	int				m_iSkillCnt;
+
+	bool			m_bUnDead;
 };
 
 #endif // !__PLAYER_H__

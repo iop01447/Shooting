@@ -34,6 +34,10 @@ private:
 	TCHAR		m_szFPS[16];
 
 	int			m_iStage;
+
+
+
+	int iTime;
 };
 
 

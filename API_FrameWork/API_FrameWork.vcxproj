@@ -153,9 +153,13 @@
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.h" />
     <ClInclude Include="Extern.h" />
+    <ClInclude Include="Focus_Monster.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="Include.h" />
+    <ClInclude Include="Kamikaze.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="MinAoe.h" />
+    <ClInclude Include="Rect.h" />
     <ClInclude Include="MiniGun.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Mouse.h" />
@@ -172,7 +176,11 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
+    <ClCompile Include="Focus_Monster.cpp" />
+    <ClCompile Include="Kamikaze.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="MinAoe.cpp" />
+    <ClCompile Include="Rect.cpp" />
     <ClCompile Include="MiniGun.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Mouse.cpp" />
