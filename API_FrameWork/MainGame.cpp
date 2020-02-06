@@ -9,7 +9,7 @@
 
 
 CMainGame::CMainGame()
-	: m_pPlayer(nullptr), m_dwTime(GetTickCount()), m_iFPS(0), m_szFPS(L"")
+	: m_pPlayer(nullptr), m_dwTime(GetTickCount()), m_iFPS(0), m_szFPS(L""), m_iStage(0)
 {
 }
 
@@ -41,15 +41,17 @@ void CMainGame::Initialize()
 
 
 	//보스생성코드 시작 -> 싫으면 주석처리
-	m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CBoss>::Create());	
+	/*m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CBoss>::Create());	
 	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Boss(&m_listObj[OBJID::BOSS]);
 	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
 	m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CMiniGun>::Create(WINCX/2+MINIGUN_DIS, 200.f)); 
 	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Right(m_listObj[OBJID::BOSS].back());
 	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Id(MINIGUN::RIGHT);
 	m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CMiniGun>::Create(WINCX / 2 - MINIGUN_DIS, 200.f));
 	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Left(m_listObj[OBJID::BOSS].back());
 	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Id(MINIGUN::LEFT);*/
 	//보스생성코드 끝 
 
 	
@@ -74,16 +76,39 @@ void CMainGame::Update()
 		}
 	}
 
-	/////////////////////잡몹 랜덤 생성
-	int iTime = rand();
-	if (iTime % 500 == 0)
-	{
-		m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
-		m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
-		dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Id(OBJID::MONSTER);
-		dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
-	}
+	///////////////////////잡몹 랜덤 생성
+	//int iTime = rand();
+	//if (iTime % 500 == 0)
+	//{
+	//	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
+	//	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+	//	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Id(OBJID::MONSTER);
+	//	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	//}
 	////////////////////////
+
+	if (m_listObj[OBJID::MONSTER].empty() && m_listObj[OBJID::BOSS].empty())
+	{
+		switch (m_iStage)
+		{
+		case 0:
+			Generate_Monster_0();
+			break;
+		case 1:
+			Generate_Monster_0();
+			break;
+		case 2:
+			Generate_Monster_0();
+			break;
+		case 3:
+			Generate_Boss();
+			break;
+		case 4:
+			//게임 종료
+			return;
+		}
+		++m_iStage;
+	}
 }
 
 
@@ -148,4 +173,27 @@ void CMainGame::Release()
 		for_each(m_listObj[i].begin(), m_listObj[i].end(), Safe_Delete<CObj*>);
 		m_listObj[i].clear();
 	}
+}
+
+void CMainGame::Generate_Boss()
+{
+	m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CBoss>::Create());
+	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Boss(&m_listObj[OBJID::BOSS]);
+	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CMiniGun>::Create(WINCX / 2 + MINIGUN_DIS, 200.f));
+	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Right(m_listObj[OBJID::BOSS].back());
+	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Id(MINIGUN::RIGHT);
+	m_listObj[OBJID::BOSS].emplace_back(CAbstractFactory<CMiniGun>::Create(WINCX / 2 - MINIGUN_DIS, 200.f));
+	dynamic_cast<CBoss*>(m_listObj[OBJID::BOSS].front())->Set_Left(m_listObj[OBJID::BOSS].back());
+	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	dynamic_cast<CMiniGun*>(m_listObj[OBJID::BOSS].back())->Set_Id(MINIGUN::LEFT);
+}
+
+void CMainGame::Generate_Monster_0()
+{
+	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create());
+	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Id(OBJID::MONSTER);
+	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
 }

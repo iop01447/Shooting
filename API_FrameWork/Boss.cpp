@@ -41,11 +41,16 @@ void CBoss::Initialize()
 
 int CBoss::Update()
 {
+	if (m_bDead)
+		return OBJ_DEAD;
 	if (m_eStatePrev != m_eState)
 		m_iTick = 0;
 	else
 		++m_iTick;
 	m_eStatePrev = m_eState;
+
+	if (m_pLeft || m_pRight)	//양쪽 대포 다 안깨면 보스는 무적
+		m_iHp = BOSS_MAX_HP;
 	/*m_pLeft->Set_Pos()*/
 	switch (m_eState)
 	{
@@ -61,6 +66,20 @@ int CBoss::Update()
 
 void CBoss::Late_Update()
 {
+	if (m_pLeft) 
+	{
+		if (m_pLeft->Is_Dead())
+			m_pLeft = nullptr;
+	}
+	if (m_pRight) 
+	{
+		if (m_pRight->Is_Dead())
+			m_pRight = nullptr;
+	}
+	if (m_iHp <= 0)
+	{
+		m_bDead = true;	
+	}
 }
 
 void CBoss::Render(HDC _DC)
@@ -100,6 +119,10 @@ void CBoss::Render(HDC _DC)
 	LineTo(_DC, m_tInfo.fX + fHalf_Diag*cosf((45.f + m_fAngle)*PI / 180.f), m_tInfo.fY - fHalf_Diag*sinf((45.f + m_fAngle)*PI / 180.f));
 
 	//체력바
+	Rectangle(_DC, 30, 30, 40, 300);
+	RECT tHp = { 30, 30 + ((float)(BOSS_MAX_HP - m_iHp) / (float)BOSS_MAX_HP)*(300-30), 40, 300 };
+	FillRect(_DC, &tHp, CreateSolidBrush(RGB(255, 0, 0)));
+
 	
 
 }
@@ -118,8 +141,10 @@ CObj * CBoss::Create_Bullet(float x, float y)
 
 void CBoss::MiniGun_Update()
 {
-	m_pLeft->Set_Pos(m_tInfo.fX + MINIGUN_DIS*cosf(m_fLeftAngle*PI / 180.f), m_tInfo.fY - MINIGUN_DIS*sinf(m_fLeftAngle*PI / 180.f));
-	m_pRight->Set_Pos(m_tInfo.fX + MINIGUN_DIS*cosf(m_fRightAngle*PI / 180.f), m_tInfo.fY - MINIGUN_DIS*sinf(m_fRightAngle*PI / 180.f));
+	if(m_pLeft)
+		m_pLeft->Set_Pos(m_tInfo.fX + MINIGUN_DIS*cosf(m_fLeftAngle*PI / 180.f), m_tInfo.fY - MINIGUN_DIS*sinf(m_fLeftAngle*PI / 180.f));
+	if(m_pRight)
+		m_pRight->Set_Pos(m_tInfo.fX + MINIGUN_DIS*cosf(m_fRightAngle*PI / 180.f), m_tInfo.fY - MINIGUN_DIS*sinf(m_fRightAngle*PI / 180.f));
 }
 
 void CBoss::Rotate_Body(float _fAngle)
@@ -127,22 +152,26 @@ void CBoss::Rotate_Body(float _fAngle)
 	m_fAngle += _fAngle;
 	m_fRightAngle += _fAngle;
 	m_fLeftAngle += _fAngle;
-	m_pLeft->Add_Angle(_fAngle);
-	m_pRight->Add_Angle(_fAngle);
+	if(m_pLeft)
+		m_pLeft->Add_Angle(_fAngle);
+	if(m_pRight)
+		m_pRight->Add_Angle(_fAngle);
 	MiniGun_Update();
 }
 
 void CBoss::Rotate_Right(float _fAngle)
 {
 	m_fRightAngle += _fAngle;
-	m_pRight->Add_Angle(_fAngle);
+	if (m_pRight)
+		m_pRight->Add_Angle(_fAngle);
 	MiniGun_Update();
 }
 
 void CBoss::Rotate_Left(float _fAngle)
 {
 	m_fLeftAngle += _fAngle;
-	m_pLeft->Add_Angle(_fAngle);
+	if (m_pLeft)
+		m_pLeft->Add_Angle(_fAngle);
 	MiniGun_Update();
 }
 
@@ -163,8 +192,10 @@ void CBoss::State_P1_Idle()
 	Rotate_Left(m_fLeftSpeed);
 	if (m_iTick % 20 == 0)
 	{
-		dynamic_cast<CMiniGun*>(m_pLeft)->Shoot_Basic();
-		dynamic_cast<CMiniGun*>(m_pRight)->Shoot_Basic();
+		if (m_pLeft)
+			dynamic_cast<CMiniGun*>(m_pLeft)->Shoot_Basic();
+		if (m_pRight)
+			dynamic_cast<CMiniGun*>(m_pRight)->Shoot_Basic();
 	}
 
 }

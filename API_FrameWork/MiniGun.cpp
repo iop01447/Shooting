@@ -5,6 +5,7 @@
 #define MINI_LENGTH 60.f
 #define MINI_HWIDTH 5.f
 #define MINI_HDIS 10.f
+#define MINI_MAXHP 100
 
 
 CMiniGun::CMiniGun()
@@ -24,10 +25,14 @@ void CMiniGun::Initialize()
 
 	m_fAngle = 270.f;
 
+	m_iHp = MINI_MAXHP;
+
 }
 
 int CMiniGun::Update()
 {
+	if (m_bDead)
+		return OBJ_DEAD;
 
 	/*if ((int)m_fAngle % 20 == 0)
 		Shoot_Basic();*/
@@ -37,6 +42,9 @@ int CMiniGun::Update()
 
 void CMiniGun::Late_Update()
 {
+	if (0 >= m_iHp)
+		m_bDead = true;
+
 }
 
 void CMiniGun::Render(HDC _DC)
@@ -56,6 +64,21 @@ void CMiniGun::Render(HDC _DC)
 
 	//¸öÃ¼
 	Ellipse(_DC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+
+	//Ã¼·Â¹Ù
+	if (m_eId == MINIGUN::LEFT)
+	{
+		Rectangle(_DC, 50, 30, 60, 150);
+		RECT tHp = { 50, 30 + ((float)(MINI_MAXHP - m_iHp) / (float)MINI_MAXHP)*(150 - 30), 60, 150 };
+		FillRect(_DC, &tHp, CreateSolidBrush(RGB(255, 0, 0)));
+	}
+	else
+	{
+		Rectangle(_DC, 50, 180, 60, 300);
+		RECT tHp = { 50, 180 + ((float)(MINI_MAXHP - m_iHp) / (float)MINI_MAXHP)*(150 - 30), 60, 300 };
+		FillRect(_DC, &tHp, CreateSolidBrush(RGB(255, 0, 0)));
+	}
+
 }
 
 void CMiniGun::Release()

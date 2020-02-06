@@ -18,5 +18,10 @@ namespace BOSS
 {
 	enum STATE { P1_IDLE, END};
 }
+namespace MINIGUN
+{
+	enum ID { LEFT, RIGHT, END};
+}
+
 
 #endif // !__ENUM_H__
