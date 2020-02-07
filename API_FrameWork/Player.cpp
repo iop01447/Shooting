@@ -134,6 +134,10 @@ int CPlayer::Update()
 	{
 		m_bUnDead = true;
 	}
+	if (GetAsyncKeyState('I'))
+	{
+		m_bUnDead = false;
+	}
 
 	Update_Rect();
 	Update_Polygon();
@@ -229,6 +233,7 @@ void CPlayer::Skill_1()
 			dis = j * 50.f;
 			radian_angle = angle * PI / 180.f;
 			CObj *pObj = Create_Bullet<CBullet>(m_tInfo.fX + cosf(radian_angle) * dis, m_tInfo.fY - sinf(radian_angle) * dis, angle);
+			pObj->Set_Damage(20);
 			m_pBullet->emplace_back(pObj);
 		}
 		reverse = !reverse;
@@ -253,11 +258,8 @@ void CPlayer::Collision(CObj * _obj, OBJID::ID _id)
 			m_iDamage += 1;
 		}
 		break;
-	case ID::SKILL_POINT:
-		m_iSkillCnt += 1;
-		if (m_iSkillCnt > 5) {
-			m_iSkillCnt = 5;
-		}
+	case ID::SKILL:
+		Skill_1();
 		break;
 	}
 }
