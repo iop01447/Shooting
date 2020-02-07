@@ -221,6 +221,7 @@ void CMainGame::Render()
 		Screen.right = WINCX;
 		Screen.bottom = WINCY;
 		FillRect(m_BackBufferDC, &Screen, m_Screen);
+		SetTextAlign(m_DC, TA_CENTER);
 		if(iTime>=160)
 			TextOut(m_BackBufferDC, 300, 200, str, lstrlen(str));
 		else
@@ -242,6 +243,7 @@ void CMainGame::Render()
 		Screen.right = WINCX;
 		Screen.bottom = WINCY;
 		FillRect(m_BackBufferDC, &Screen, m_Screen);*/
+		SetTextAlign(m_DC, TA_CENTER);
 		if (iTime >= 120)
 			TextOut(m_BackBufferDC, 300, 200, str, lstrlen(str));
 		else
