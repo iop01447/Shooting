@@ -232,10 +232,10 @@ void CMainGame::Render()
 	//게임 클리어
 	if (m_eState == MAINGAME::COMPLETE)
 	{
-		m_Font = CreateFont(60, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 3, 2, 1,
+		m_Font = CreateFont(30, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 3, 2, 1,
 			VARIABLE_PITCH | FF_ROMAN, L"궁서");
 		m_Old_Font = (HFONT)SelectObject(m_BackBufferDC, m_Font);
-		TCHAR str[] = L"Game Complete!";
+		TCHAR str[] = L"Game_Complete!";
 		/*RECT Screen = {};
 		Screen.top = 800 - 5 * iTime;
 		Screen.left = 0;
