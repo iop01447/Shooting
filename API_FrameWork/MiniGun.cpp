@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MiniGun.h"
 #include "Bullet.h"
+#include "RotatableBullet.h"
 
 #define MINI_LENGTH 60.f
 #define MINI_HWIDTH 5.f
@@ -58,17 +59,20 @@ void CMiniGun::Late_Update()
 
 void CMiniGun::Render(HDC _DC)
 {
-	//포신1
-	MoveToEx(_DC, m_tInfo.fX + (MINI_HDIS+MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f), m_tInfo.fY - (MINI_HDIS+MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f), nullptr);
-	LineTo(_DC, m_tInfo.fX + (MINI_HDIS+MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f) + MINI_LENGTH*cosf(m_fAngle*PI / 180.f), m_tInfo.fY - (MINI_HDIS+MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f) - MINI_LENGTH*sinf(m_fAngle*PI / 180.f));
-	LineTo(_DC, m_tInfo.fX + (MINI_HDIS - MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f) + MINI_LENGTH*cosf(m_fAngle*PI / 180.f), m_tInfo.fY - (MINI_HDIS - MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f) - MINI_LENGTH*sinf(m_fAngle*PI / 180.f));
-	LineTo(_DC, m_tInfo.fX + (MINI_HDIS - MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f), m_tInfo.fY - (MINI_HDIS - MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f));
+	POINT tBuf[4] = {};
+	
+	tBuf[0] = { (LONG)(m_tInfo.fX + (MINI_HDIS + MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f)),(LONG)(m_tInfo.fY - (MINI_HDIS + MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f)) };
+	tBuf[1] = { (LONG)(m_tInfo.fX + (MINI_HDIS + MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f) + MINI_LENGTH*cosf(m_fAngle*PI / 180.f)),(LONG)(m_tInfo.fY - (MINI_HDIS + MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f) - MINI_LENGTH*sinf(m_fAngle*PI / 180.f)) };
+	tBuf[2] = { (LONG)(m_tInfo.fX + (MINI_HDIS - MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f) + MINI_LENGTH*cosf(m_fAngle*PI / 180.f)),(LONG)(m_tInfo.fY - (MINI_HDIS - MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f) - MINI_LENGTH*sinf(m_fAngle*PI / 180.f)) };
+	tBuf[3] = { (LONG)(m_tInfo.fX + (MINI_HDIS - MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f)),(LONG)(m_tInfo.fY - (MINI_HDIS - MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f)) };
+	Polygon(_DC, tBuf, 4);
 
-	//포신2
-	MoveToEx(_DC, m_tInfo.fX + ((-MINI_HDIS) + MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f), m_tInfo.fY - ((-MINI_HDIS) + MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f), nullptr);
-	LineTo(_DC, m_tInfo.fX + ((-MINI_HDIS) + MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f) + MINI_LENGTH*cosf(m_fAngle*PI / 180.f), m_tInfo.fY - ((-MINI_HDIS) + MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f) - MINI_LENGTH*sinf(m_fAngle*PI / 180.f));
-	LineTo(_DC, m_tInfo.fX + ((-MINI_HDIS) - MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f) + MINI_LENGTH*cosf(m_fAngle*PI / 180.f), m_tInfo.fY - ((-MINI_HDIS) - MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f) - MINI_LENGTH*sinf(m_fAngle*PI / 180.f));
-	LineTo(_DC, m_tInfo.fX + ((-MINI_HDIS) - MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f), m_tInfo.fY - ((-MINI_HDIS) - MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f));
+	
+	tBuf[0] = { (LONG)(m_tInfo.fX + ((-MINI_HDIS) + MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f)),(LONG)(m_tInfo.fY - ((-MINI_HDIS) + MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f)) };
+	tBuf[1] = { (LONG)(m_tInfo.fX + ((-MINI_HDIS) + MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f) + MINI_LENGTH*cosf(m_fAngle*PI / 180.f)),(LONG)(m_tInfo.fY - ((-MINI_HDIS) + MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f) - MINI_LENGTH*sinf(m_fAngle*PI / 180.f)) };
+	tBuf[2] = { (LONG)(m_tInfo.fX + ((-MINI_HDIS) - MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f) + MINI_LENGTH*cosf(m_fAngle*PI / 180.f)),(LONG)(m_tInfo.fY - ((-MINI_HDIS) - MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f) - MINI_LENGTH*sinf(m_fAngle*PI / 180.f)) };
+	tBuf[3] = { (LONG)(m_tInfo.fX + ((-MINI_HDIS) - MINI_HWIDTH)*cosf((m_fAngle - 90.f)*PI / 180.f)),(LONG)(m_tInfo.fY - ((-MINI_HDIS) - MINI_HWIDTH)*sinf((m_fAngle - 90.f)*PI / 180.f)) };
+	Polygon(_DC, tBuf, 4);
 
 
 	//몸체
@@ -110,10 +114,10 @@ void CMiniGun::Shoot_Basic(float _fSpeed)
 }
 CObj * CMiniGun::Create_Bullet(float x, float y)
 {
-	CObj* pObj = CAbstractFactory<CBullet>::Create(x, y, m_fAngle);
-	dynamic_cast<CBullet*>(pObj)->Set_Shape(BULLET::SHAPE::CIRCLE);
-	pObj->Set_Color(200, 200, 0);
-	//pObj->Set_Pen_UnVisible();
+	CObj* pObj = CAbstractFactory<CRotatableBullet>::Create(x, y, m_fAngle);
+	//dynamic_cast<CBullet*>(pObj)->Set_Shape(BULLET::SHAPE::CIRCLE);
+	pObj->Set_Color(225, 200, 0);
+	pObj->Set_Pen_UnVisible();
 
 	return pObj;
 }

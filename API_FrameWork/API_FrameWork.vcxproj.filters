@@ -91,6 +91,9 @@
     <Filter Include="소스 파일\01.Obj\01.Bullet\02. Monster_Bullet\03. Trap">
       <UniqueIdentifier>{93eed90a-9ba6-4b08-98f3-7ffee7ea884d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\01.Obj\01.Bullet\03. Rotatable_Bullet">
+      <UniqueIdentifier>{69df1869-c0a8-46b9-9a3b-51c8f586d91c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -186,6 +189,9 @@
     <ClInclude Include="Trap_Monster.h">
       <Filter>소스 파일\01.Obj\02.Monster\06. Trap_Monster</Filter>
     </ClInclude>
+    <ClInclude Include="RotatableBullet.h">
+      <Filter>소스 파일\01.Obj\01.Bullet\03. Rotatable_Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="API_FrameWork.cpp">
@@ -253,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="Trap_Monster.cpp">
       <Filter>소스 파일\01.Obj\02.Monster\06. Trap_Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="RotatableBullet.cpp">
+      <Filter>소스 파일\01.Obj\01.Bullet\03. Rotatable_Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

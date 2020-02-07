@@ -285,10 +285,10 @@ void CBoss::State_P1_A1_S1()
 
 void CBoss::State_P1_A1_S2()
 {
-	if (m_iTick % 120 == 0)
+	if (m_iTick % 100 == 0)
 		if (m_pLeft)
 			dynamic_cast<CMiniGun*>(m_pLeft)->Shoot_Basic(5.f);
-	if (m_iTick % 120 == 60)
+	if (m_iTick % 100 == 50)
 		if (m_pRight)
 			dynamic_cast<CMiniGun*>(m_pRight)->Shoot_Basic(5.f);
 	Rotate_Body(2.f);
@@ -341,7 +341,7 @@ void CBoss::State_P1_A1_S3()
 {
 	//go to idle
 	if (((int)m_fAngle + 360*10000) % 360 != 270.f)
-		Rotate_Body(1.f);
+		Rotate_Body(2.f);
 	else
 		m_fAngle = 270.f;
 	if (m_fAngle == 270.f)
@@ -359,7 +359,7 @@ void CBoss::State_P1_A1_S3()
 	{
 		if (m_pLeft)
 		{
-			if (((int)(m_pLeft->Get_Angle() - 270.f)+ 360 * 100000) % 360 <1)
+			if (((int)(m_pLeft->Get_Angle() - 270.f)+ 360 * 100000) % 360 <2)
 			{
 				m_pLeft->Set_Angle(270.f);
 			}
@@ -372,7 +372,7 @@ void CBoss::State_P1_A1_S3()
 		}
 		if (m_pRight)
 		{
-			if (((int)(m_pRight->Get_Angle() - 270.f) + 360 * 100000) % 360 <1)
+			if (((int)(m_pRight->Get_Angle() - 270.f) + 360 * 100000) % 360 <2)
 			{
 				m_pRight->Set_Angle(270.f);
 			}
