@@ -106,7 +106,10 @@ void CMainGame::Update()
 			Spwan_Shotgun_Monster(float(0), 0.f);
 
 			break;
-		case 2:
+		case 2:			
+			Spwan_Trap_Monster(float(0), 0.f);
+			Spwan_Trap_Monster(float(WINCX), 0.f);
+
 			Spwan_Bounce_Monster(float(WINCX - 100), 0.f);
 			Spwan_Bounce_Monster(float(100), 0.f);
 
