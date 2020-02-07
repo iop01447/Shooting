@@ -22,6 +22,7 @@ void CBullet::Initialize()
 	m_iDamage = 1;
 
 	Set_Color(255, 0, 0);
+	Set_Pen_UnVisible();
 }
 
 int CBullet::Update()
