@@ -42,6 +42,8 @@ void CMainGame::Initialize()
 	//dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].front())->Set_Bullet(&m_listObj[OBJID::BULLET]);
 
 	m_listObj[OBJID::MOUSE].emplace_back(CAbstractFactory<CMouse>::Create());	
+
+	m_Screen = CreateSolidBrush(RGB(0, 0, 0));
 }
 
 void CMainGame::Update()
@@ -150,10 +152,14 @@ void CMainGame::Update()
 			Spwan_Shotgun_Monster(float(WINCX / 2), 0.f);
 			Spwan_Shotgun_Monster(float(WINCX), 0.f);
 			Spwan_Shotgun_Monster(float(0), 0.f);
-			return;
+			break;
 		case 5:
 			Generate_Boss();
-			return;
+			break;
+		case 6:
+			m_eState = MAINGAME::COMPLETE;
+			iTime = 0;
+			break;
 		}
 		++m_iStage;
 	}
@@ -200,18 +206,48 @@ void CMainGame::Render()
 		m_iFPS = 0;
 		m_dwTime = GetTickCount();
 	}
+	
+	//게임오버
 	if (m_eState == MAINGAME::GAMEOVER)
 	{
 		m_Font = CreateFont(80, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 3, 2, 1,
 			VARIABLE_PITCH | FF_ROMAN, L"궁서");
 		m_Old_Font = (HFONT)SelectObject(m_BackBufferDC, m_Font);
 		TCHAR str[] = L"Game Over!";
-		if(iTime>=120)
+		RECT Screen = {};
+		Screen.top = 800 - 5 * iTime;
+		Screen.left = 0;
+		Screen.right = WINCX;
+		Screen.bottom = WINCY;
+		FillRect(m_BackBufferDC, &Screen, m_Screen);
+		if(iTime>=160)
 			TextOut(m_BackBufferDC, 60, 200, str, lstrlen(str));
 		else
-			TextOut(m_BackBufferDC, 60, 800-5*iTime, str, lstrlen(str));
+			TextOut(m_BackBufferDC, 60, 1000-5*iTime, str, lstrlen(str));
 		SelectObject(m_BackBufferDC, m_Old_Font);
 		DeleteObject(m_Font);
+		
+	}
+	//게임 클리어
+	if (m_eState == MAINGAME::COMPLETE)
+	{
+		m_Font = CreateFont(60, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 3, 2, 1,
+			VARIABLE_PITCH | FF_ROMAN, L"궁서");
+		m_Old_Font = (HFONT)SelectObject(m_BackBufferDC, m_Font);
+		TCHAR str[] = L"Game Complete!";
+		/*RECT Screen = {};
+		Screen.top = 800 - 5 * iTime;
+		Screen.left = 0;
+		Screen.right = WINCX;
+		Screen.bottom = WINCY;
+		FillRect(m_BackBufferDC, &Screen, m_Screen);*/
+		if (iTime >= 120)
+			TextOut(m_BackBufferDC, 50, 200, str, lstrlen(str));
+		else
+			TextOut(m_BackBufferDC, 50, 800 - 5 * iTime, str, lstrlen(str));
+		SelectObject(m_BackBufferDC, m_Old_Font);
+		DeleteObject(m_Font);
+
 	}
 
 	BitBlt(m_DC, 0, 0, WINCX, WINCY, m_BackBufferDC, 0, 0, SRCCOPY);

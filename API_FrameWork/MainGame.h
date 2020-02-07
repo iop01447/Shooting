@@ -51,6 +51,7 @@ private:
 	MAINGAME::STATE		m_eState;
 	MAINGAME::STATE		m_ePrev;
 	HFONT				m_Font, m_Old_Font;
+	HBRUSH				m_Screen;
 
 };
 
