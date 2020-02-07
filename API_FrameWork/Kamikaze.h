@@ -15,6 +15,7 @@ public:
 	virtual void Render(HDC _DC);
 	virtual void Release();
 
-
+private:
+	int m_iColor[3];
 };
 

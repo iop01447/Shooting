@@ -56,24 +56,32 @@ void CItem::Late_Update()
 
 void CItem::Render(HDC _DC)
 {
-	Rectangle(_DC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	//Rectangle(_DC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	
 	TCHAR szBuff[32] = L"";
 
+	SetTextColor(_DC, RGB(255, 255, 255));
 	switch (m_eId)
 	{
 	case ITEM::ID::HP:
+		SetBkColor(_DC, RGB(255, 0, 0)); // 배경 색상
 		wsprintf(szBuff, L"HP");
 		break;
 	case ITEM::ID::SKILL_UP:
+		SetBkColor(_DC, RGB(55, 52, 235));
 		wsprintf(szBuff, L"SKILL_UP");
 		break;
 	case ITEM::ID::SKILL:
+		SetBkColor(_DC, RGB(122, 52, 235));
 		wsprintf(szBuff, L"SKILL");
 		break;
 	}
 
 	TextOut(_DC, m_tInfo.fX, m_tInfo.fY-8, szBuff, lstrlen(szBuff));
+
+	// 원상 복귀
+	SetTextColor(_DC, RGB(0, 0, 0));
+	SetBkColor(_DC, RGB(255, 255, 255));
 }
 
 void CItem::Release()

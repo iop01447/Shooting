@@ -89,14 +89,6 @@ void CMainGame::Update()
 		switch (m_iStage)
 		{
 		case 0:
-			Spwan_Kamikaze_Monster(float(WINCX - 100), 0.f);
-			Spwan_Kamikaze_Monster(float(100), 0.f);
-
-			Spwan_Shotgun_Monster(float(WINCX / 2), 0.f);
-			Spwan_Shotgun_Monster(float(WINCX), 0.f);
-			Spwan_Shotgun_Monster(float(0), 0.f);
-			break;
-		case 1:
 			Spwan_Focus_Monster(float(WINCX / 2), 0.f);
 			Spwan_Focus_Monster(float(WINCX - 100), 0.f);
 			Spwan_Focus_Monster(float(100), 0.f);
@@ -104,9 +96,23 @@ void CMainGame::Update()
 			Spwan_Shotgun_Monster(float(WINCX / 2), 0.f);
 			Spwan_Shotgun_Monster(float(WINCX), 0.f);
 			Spwan_Shotgun_Monster(float(0), 0.f);
+			break;
+		case 1:
+			Spwan_Kamikaze_Monster(float(WINCX - 100), 0.f);
+			Spwan_Kamikaze_Monster(float(100), 0.f);
+
+			Spwan_Focus_Monster(float(WINCX / 2), 0.f);
+			Spwan_Focus_Monster(float(WINCX - 100), 0.f);
+			Spwan_Focus_Monster(float(100), 0.f);
+
+			Spwan_Shotgun_Monster(float(WINCX), 0.f);
+			Spwan_Shotgun_Monster(float(0), 0.f);
 
 			break;
-		case 2:
+		case 2:			
+			Spwan_Trap_Monster(float(0), 0.f);
+			Spwan_Trap_Monster(float(WINCX), 0.f);
+
 			Spwan_Bounce_Monster(float(WINCX - 100), 0.f);
 			Spwan_Bounce_Monster(float(100), 0.f);
 
@@ -131,6 +137,8 @@ void CMainGame::Update()
 			Spwan_Shield_Monster(float(WINCX / 2), 45.f);
 			Spwan_Shield_Monster(float(WINCX - 100), 45.f);
 			Spwan_Shield_Monster(float(100), 45.f);
+
+			Spwan_Kamikaze_Monster(float(WINCX / 2), 0.f);
 			break;
 		case 4:
 			Spwan_Trap_Monster(float(0), 0.f);
