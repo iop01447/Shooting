@@ -283,6 +283,7 @@ void CMainGame::Spwan_Shotgun_Monster(float _fX, float _fY)
 	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CShotgun_Monster>::Create(_fX, _fY));
 	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
 	dynamic_cast<CShotgun_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	dynamic_cast<CShotgun_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Item(&m_listObj[OBJID::ITEM]); // Ãß°¡
 }
 
 void CMainGame::Spwan_Shield_Monster(float _fX, float _fY)

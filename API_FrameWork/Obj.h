@@ -34,6 +34,7 @@ public:
 	void Set_Target(CObj* _pTarget) { m_pTarget = _pTarget; }
 	void Set_Speed(float _fSpeed) { m_fSpeed = _fSpeed; }
 	void Set_AngleSpeed(float _fAngleSpeed) { m_fAngleSpeed = _fAngleSpeed; }
+	void Set_Damage(int _iDamage) { m_iDamage = _iDamage; }
 	
 	int Get_Damage() { return m_iDamage; }
 	float Get_Angle() { return m_fAngle; }

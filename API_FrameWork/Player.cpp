@@ -50,6 +50,7 @@ void CPlayer::Initialize()
 	}
 
 	m_iHp = 5;
+	m_iDamage = 2;
 }
 
 int CPlayer::Update()
@@ -216,15 +217,18 @@ void CPlayer::Draw_Star(HDC _DC, int _x, int _y)
 
 void CPlayer::Skill_1()
 {
-	int cnt = 20;
-	float angle = 0;
+	int cnt = 20, dis = 0;
+	float angle = 0, radian_angle = 0;
 	bool reverse = false;
 	for (int j = 0; j < 3; j++) {
 		for (int i = 0; i < cnt; ++i) {
 			angle = i * (360.f / cnt);
-			CObj *pObj = Create_Bullet<CRotationBullet>(m_tInfo.fX, m_tInfo.fY, angle);
+			/*CObj *pObj = Create_Bullet<CRotationBullet>(m_tInfo.fX, m_tInfo.fY, angle);
 			dynamic_cast<CRotationBullet*>(pObj)->Set_RotSpeed(reverse);
-			dynamic_cast<CRotationBullet*>(pObj)->Set_RotDis(j * 50.f);
+			dynamic_cast<CRotationBullet*>(pObj)->Set_RotDis(j * 50.f);*/
+			dis = j * 50.f;
+			radian_angle = angle * PI / 180.f;
+			CObj *pObj = Create_Bullet<CBullet>(m_tInfo.fX + cosf(radian_angle) * dis, m_tInfo.fY - sinf(radian_angle) * dis, angle);
 			m_pBullet->emplace_back(pObj);
 		}
 		reverse = !reverse;
@@ -244,8 +248,16 @@ void CPlayer::Collision(CObj * _obj, OBJID::ID _id)
 		break;
 	case ID::SKILL_UP:
 		m_iSkillLv += 1;
-		if (m_iSkillLv > 3)
+		if (m_iSkillLv > 3) {
 			m_iSkillLv = 3;
+			m_iDamage += 1;
+		}
+		break;
+	case ID::SKILL_POINT:
+		m_iSkillCnt += 1;
+		if (m_iSkillCnt > 5) {
+			m_iSkillCnt = 5;
+		}
 		break;
 	}
 }

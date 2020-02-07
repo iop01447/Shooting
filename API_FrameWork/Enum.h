@@ -31,7 +31,7 @@ namespace MAINGAME
 
 namespace ITEM
 {
-	enum ID { HP, SKILL_UP, END };
+	enum ID { HP, SKILL_UP, SKILL_POINT, END };
 }
 
 #endif // !__ENUM_H__
