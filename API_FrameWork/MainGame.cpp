@@ -289,7 +289,6 @@ void CMainGame::Spwan_Shield_Monster(float _fX, float _fY)
 {
 	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CShield_Monster>::Create(_fX, _fY));
 	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
-	dynamic_cast<CShield_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
 	dynamic_cast<CShield_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Item(&m_listObj[OBJID::ITEM]); // Ãß°¡
 }
 
