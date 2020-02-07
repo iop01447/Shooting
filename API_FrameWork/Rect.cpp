@@ -21,6 +21,8 @@ void CRect::Initialize()
 
 	//총알떠는거 싫어서 고정값.
 	m_fAngle = 45.f;
+
+	Set_Color(0, 230, 100);
 }
 
 int CRect::Update()
@@ -47,7 +49,7 @@ void CRect::Late_Update()
 
 void CRect::Render(HDC _DC)
 {
-	Ellipse(_DC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	Rectangle(_DC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
 void CRect::Release()

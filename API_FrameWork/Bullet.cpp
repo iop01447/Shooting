@@ -15,11 +15,13 @@ CBullet::~CBullet()
 
 void CBullet::Initialize()
 {
-	m_tInfo.iCX = 15;
-	m_tInfo.iCY = 15;
+	m_tInfo.iCX = 10;
+	m_tInfo.iCY = 25;
 
-	m_fSpeed = 7.f;
+	m_fSpeed = 6.f;
 	m_iDamage = 1;
+
+	Set_Color(255, 0, 0);
 }
 
 int CBullet::Update()

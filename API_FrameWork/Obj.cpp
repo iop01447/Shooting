@@ -50,3 +50,32 @@ void CObj::Set_Pen_UnVisible()
 	DeleteObject(m_Pen);
 	m_Pen = CreatePen(PS_NULL, 1, RGB(0,0,0));
 }
+
+void CObj::Monster_move(int iA)
+{
+	float fX = 0.f, fY = 0.f, fDis = 0.f;
+
+	fX = m_pTarget->Get_Info().fX - m_tInfo.fX;
+	if (m_tInfo.fY <= m_pTarget->Get_Info().fY + iA && m_tInfo.fY >= m_pTarget->Get_Info().fY) {}
+	else if (m_tInfo.fY >= m_pTarget->Get_Info().fY - iA && m_tInfo.fY <= m_pTarget->Get_Info().fY) {}
+	else if (m_pTarget->Get_Info().fY - iA < 25)
+	{
+		fY = m_pTarget->Get_Info().fY - iA - m_tInfo.fY;
+	}
+	else
+	{
+		fY = m_pTarget->Get_Info().fY + iA - m_tInfo.fY;
+	}
+
+	fDis = sqrtf(fX * fX + fY * fY);
+	if (fDis == 0) { ; }
+	else
+	{
+		m_fAngle = acosf(fX / fDis) * 180.f / PI;
+		if (m_tInfo.fY < m_pTarget->Get_Info().fY)
+			m_fAngle *= -1.f;
+	}
+
+	m_tInfo.fX += cosf(m_fAngle * PI / 180.f) * m_fSpeed;
+	m_tInfo.fY -= sinf(m_fAngle * PI / 180.f) * m_fSpeed;
+}
