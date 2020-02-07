@@ -7,7 +7,7 @@
 #define POSIN_HEIGHT 80.f
 #define ARM_HWIDTH 25.f
 #define MINIGUN_DIS (ARM_LENGTH+0.f)
-#define BOSS_MAX_HP 200
+#define BOSS_MAX_HP 500
 #define BOSS_ICX 100
 
 class MiniGun;

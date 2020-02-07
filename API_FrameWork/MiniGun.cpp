@@ -6,7 +6,7 @@
 #define MINI_LENGTH 60.f
 #define MINI_HWIDTH 5.f
 #define MINI_HDIS 10.f
-#define MINI_MAXHP 100
+#define MINI_MAXHP 400
 
 
 CMiniGun::CMiniGun()
@@ -107,9 +107,9 @@ void CMiniGun::Release()
 void CMiniGun::Shoot_Basic()
 {
 	m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX + (MINI_HDIS)*cosf((m_fAngle - 90.f)*PI / 180.f) + MINI_LENGTH*cosf(m_fAngle*PI / 180.f), m_tInfo.fY - (MINI_HDIS)*sinf((m_fAngle - 90.f)*PI / 180.f) - MINI_LENGTH*sinf(m_fAngle*PI / 180.f)));
-	m_pBullet->back()->Set_Speed(3.f);
+	m_pBullet->back()->Set_Speed(5.f);
 	m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX + (MINI_HDIS)*cosf((m_fAngle + 90.f)*PI / 180.f) + MINI_LENGTH*cosf(m_fAngle*PI / 180.f), m_tInfo.fY - (MINI_HDIS)*sinf((m_fAngle + 90.f)*PI / 180.f) - MINI_LENGTH*sinf(m_fAngle*PI / 180.f)));
-	m_pBullet->back()->Set_Speed(3.f);
+	m_pBullet->back()->Set_Speed(5.f);
 }
 void CMiniGun::Shoot_Basic(float _fSpeed)
 {
