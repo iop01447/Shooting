@@ -134,6 +134,10 @@ int CPlayer::Update()
 	{
 		m_bUnDead = true;
 	}
+	if (GetAsyncKeyState('I'))
+	{
+		m_bUnDead = false;
+	}
 
 	Update_Rect();
 	Update_Polygon();
