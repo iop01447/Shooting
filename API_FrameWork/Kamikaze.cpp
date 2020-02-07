@@ -17,10 +17,12 @@ void CKamikaze::Initialize()
 	m_tInfo.iCX = 60;
 	m_tInfo.iCY = 60;
 
-	m_fSpeed = 5.f;
-	m_iHp = 5;       //몬스터 최대 체력
-
-	Set_Color(255, 0, 0);
+	m_fSpeed = 3.5f;
+	m_iHp = 45;       //몬스터 최대 체력
+	m_iColor[0] = 0; //R
+	m_iColor[1] = 0; //G
+	m_iColor[2] = 15; //G
+	//Set_Color(255, 0, 0);
 }
 
 int CKamikaze::Update()
@@ -50,6 +52,15 @@ void CKamikaze::Late_Update()
 {
 	if (0 >= m_iHp)
 		m_bDead = true;
+	else
+	{
+		for (int i = m_iColor[2]; i > m_iHp; --i)
+		{
+			m_iColor[0] += 5;
+		}
+	}
+	m_iColor[2] = m_iHp;
+	Set_Color(m_iColor[0], 0, 0);
 }
 
 void CKamikaze::Render(HDC _DC)
