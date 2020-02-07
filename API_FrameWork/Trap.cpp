@@ -23,7 +23,10 @@ int CTrap::Update()
 {
 	if (m_bDead)
 		return OBJ_DEAD;
-
+	if (m_iTime >= 1950)
+	{
+		m_bDead = true;
+	}
 	if (iCheck != 50)
 	{
 		float fX = 0.f, fY = 0.f, fDis = 0.f;
@@ -50,8 +53,7 @@ int CTrap::Update()
 		m_tInfo.fY += sinf(m_fAngle * PI / 180.f) * m_fSpeed;
 		Update_Rect();
 	}
-	
-
+	m_iTime++;
 	return OBJ_NOEVENT;
 }
 

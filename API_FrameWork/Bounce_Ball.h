@@ -19,5 +19,6 @@ public:
 
 private:
 	BULLET::DIR		m_eDir;
+	int m_iTime=0;
 };
 

@@ -24,6 +24,7 @@ void CMinAoe::Initialize()
 	m_tInfo.iCY = 15;
 
 	Set_Color(160, 60, 160);
+	Set_Pen_UnVisible();
 }
 
 int CMinAoe::Update()

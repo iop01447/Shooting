@@ -28,8 +28,8 @@ int CBounce_Monster::Update()
 {
 	if (m_bDead)
 	{
-		m_pMonsterBullet->clear();
-		m_pItem->emplace_back(CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY));
+		//m_pMonsterBullet->clear();
+		//m_pItem->emplace_back(CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY));
 		return OBJ_DEAD;
 	}
 

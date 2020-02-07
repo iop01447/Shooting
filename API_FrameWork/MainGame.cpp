@@ -83,7 +83,8 @@ void CMainGame::Update()
 	}
 		
 	////////////////스테이지////////////몬스터 생성
-	if (m_listObj[OBJID::MONSTER].empty() && m_listObj[OBJID::BOSS].empty())
+	if (m_listObj[OBJID::PLAYER].empty()) { ; }
+	else if (m_listObj[OBJID::MONSTER].empty() && m_listObj[OBJID::BOSS].empty())
 	{
 		switch (m_iStage)
 		{
