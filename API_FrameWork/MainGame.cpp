@@ -71,37 +71,72 @@ void CMainGame::Update()
 			Spwan_Kamikaze_Monster(float(WINCX - 100), 0.f);
 			Spwan_Kamikaze_Monster(float(100), 0.f);
 
-			Spwan_Normal_Monster(float(WINCX / 2), 0.f);
-			Spwan_Normal_Monster(float(WINCX - 100), 0.f);
-			Spwan_Normal_Monster(float(100), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX / 2), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX), 0.f);
+			Spwan_Shotgun_Monster(float(0), 0.f);
 			break;
 		case 1:
 			Spwan_Focus_Monster(float(WINCX / 2), 0.f);
 			Spwan_Focus_Monster(float(WINCX - 100), 0.f);
 			Spwan_Focus_Monster(float(100), 0.f);
 
-			Spwan_Shield_Monster(float(WINCX / 2), 25.f);
-			Spwan_Shield_Monster(float(WINCX - 100), 25.f);
-			Spwan_Bounce_Monster(float(WINCX - 100), 0.f);
-			Spwan_Shield_Monster(float(100), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX / 2), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX), 0.f);
+			Spwan_Shotgun_Monster(float(0), 0.f);
+
 			break;
 		case 2:
 			Spwan_Bounce_Monster(float(WINCX - 100), 0.f);
-			Spwan_Shield_Monster(float(WINCX - 100), 0.f);
 			Spwan_Bounce_Monster(float(100), 0.f);
-			Spwan_Shield_Monster(float(100), 0.f);
-			Spwan_Focus_Monster(float(WINCX / 4 *1), 0.f);
+
+			Spwan_Shield_Monster(float(WINCX / 2), 45.f);
+			Spwan_Shield_Monster(float(WINCX - 100), 45.f);
+			Spwan_Shield_Monster(float(100), 45.f);
+
+			Spwan_Focus_Monster(float(WINCX / 4 *1+100), 0.f);
 			Spwan_Focus_Monster(float(WINCX - 100), 0.f);
-			Spwan_Focus_Monster(float(WINCX /4*3), 0.f);
+			Spwan_Focus_Monster(float(WINCX /4*3-100), 0.f);
 			Spwan_Focus_Monster(float(100), 0.f);
 			break;
 		case 3:
-			Spwan_Trap_Monster(float(100), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX / 2), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX), 0.f);
+			Spwan_Shotgun_Monster(float(0), 0.f);
+
+			Spwan_Normal_Monster(float(WINCX / 2), 20.f);
+			Spwan_Normal_Monster(float(WINCX), 20.f);
+			Spwan_Normal_Monster(float(0), 20.f);
+
+			Spwan_Shield_Monster(float(WINCX / 2), 45.f);
+			Spwan_Shield_Monster(float(WINCX - 100), 45.f);
+			Spwan_Shield_Monster(float(100), 45.f);
 			break;
 		case 4:
-			Generate_Boss();
+			Spwan_Trap_Monster(float(0), 0.f);
+			Spwan_Trap_Monster(float(WINCX), 0.f);
+			Spwan_Trap_Monster(float(WINCX / 2), 0.f);
+
+			Spwan_Normal_Monster(float(WINCX / 2), 20.f);
+			Spwan_Normal_Monster(float(WINCX), 20.f);
+			Spwan_Normal_Monster(float(0), 20.f);
+
+			Spwan_Kamikaze_Monster(float(WINCX - 100), 20.f);
+			Spwan_Kamikaze_Monster(float(100), 20.f);
+
+			Spwan_Shield_Monster(float(WINCX / 2), 35.f);
+			Spwan_Shield_Monster(float(WINCX - 100), 35.f);
+			Spwan_Shield_Monster(float(100), 35.f);
+
+			Spwan_Focus_Monster(float(WINCX / 2), 10.f);
+			Spwan_Focus_Monster(float(WINCX - 100), 10.f);
+			Spwan_Focus_Monster(float(100), 10.f);
+
+			Spwan_Shotgun_Monster(float(WINCX / 2), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX), 0.f);
+			Spwan_Shotgun_Monster(float(0), 0.f);
 			return;
 		case 5:
+			Generate_Boss();
 			return;
 		}
 		++m_iStage;
