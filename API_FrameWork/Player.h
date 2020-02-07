@@ -43,6 +43,7 @@ public:
 
 public:
 	void Skill_1();
+	void Skill_2();
 
 public:
 	virtual void Collision(CObj* _obj, OBJID::ID _id);
