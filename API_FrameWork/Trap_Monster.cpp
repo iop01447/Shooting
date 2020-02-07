@@ -33,28 +33,7 @@ int CTrap_Monster::Update()
 
 	float fX = 0.f, fY = 0.f, fDis = 0.f;
 
-	fX = m_pTarget->Get_Info().fX - m_tInfo.fX;
-	if (m_tInfo.fY <= m_pTarget->Get_Info().fY + 250 && m_tInfo.fY >= m_pTarget->Get_Info().fY) {}
-	else if (m_tInfo.fY >= m_pTarget->Get_Info().fY - 250 && m_tInfo.fY <= m_pTarget->Get_Info().fY) {}
-	else if (m_pTarget->Get_Info().fY - 250 < 25)
-	{
-		fY = m_pTarget->Get_Info().fY - 250 - m_tInfo.fY;
-	}
-	else
-	{
-		fY = m_pTarget->Get_Info().fY + 250 - m_tInfo.fY;
-	}
-
-	fDis = sqrtf(fX * fX + fY * fY);
-	if (fDis == 0) { ; }
-	else {
-		m_fAngle = acosf(fX / fDis) * 180.f / PI;
-		if (m_tInfo.fY < m_pTarget->Get_Info().fY)
-			m_fAngle *= -1.f;
-	}
-
-	m_tInfo.fX += cosf(m_fAngle * PI / 180.f) * m_fSpeed;
-	m_tInfo.fY -= sinf(m_fAngle * PI / 180.f) * m_fSpeed;
+	Monster_move(250);
 
 	//////att
 	fX = m_pTarget->Get_Info().fX - m_tInfo.fX;
@@ -70,6 +49,8 @@ int CTrap_Monster::Update()
 	if (iTime % 650 >= 0 && iTime % 650 <= 15)
 	{
 		m_pMonsterBullet->emplace_back(Create_Bullet<CTrap>(m_pTarget));
+		m_pMonsterBullet->back()->Set_Color(255, 0, 0);
+		m_pMonsterBullet->back()->Set_Pen_UnVisible();
 	}
 
 	Update_Rect();

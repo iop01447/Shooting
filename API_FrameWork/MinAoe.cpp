@@ -15,12 +15,15 @@ CMinAoe::~CMinAoe()
 
 void CMinAoe::Initialize()
 {
-	m_tInfo.iCX = 15;
-	m_tInfo.iCY = 15;
 	m_fSpeed = 10.f;
 
 	//총알떠는거 싫어서 고정값.
 	m_fAngle = 45.f;
+
+	m_tInfo.iCX = 10;
+	m_tInfo.iCY = 15;
+
+	Set_Color(160, 60, 160);
 }
 
 int CMinAoe::Update()

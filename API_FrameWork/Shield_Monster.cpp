@@ -32,10 +32,10 @@ int CShield_Monster::Update()
 		return OBJ_DEAD;
 
 	int iTime = rand();
-
-	float fX = 0.f, fY = 0.f, fDis = 0.f;
-
+	Monster_move(100);
+	//float fX = 0.f, fY = 0.f, fDis = 0.f;
 	//ÀÌµ¿
+	/*
 	fX = m_pTarget->Get_Info().fX - m_tInfo.fX;
 	if (m_tInfo.fY <= m_pTarget->Get_Info().fY + 100 && m_tInfo.fY >= m_pTarget->Get_Info().fY) {}
 	else if (m_tInfo.fY >= m_pTarget->Get_Info().fY - 100 && m_tInfo.fY <= m_pTarget->Get_Info().fY) {}
@@ -59,6 +59,7 @@ int CShield_Monster::Update()
 
 	m_tInfo.fX += cosf(m_fAngle * PI / 180.f) * m_fSpeed;
 	m_tInfo.fY -= sinf(m_fAngle * PI / 180.f) * m_fSpeed;
+	*/
 
 	Update_Rect();
 	return OBJ_NOEVENT;

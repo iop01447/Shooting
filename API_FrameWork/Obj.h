@@ -44,6 +44,9 @@ public:
 	HBRUSH Get_Brush() { return m_Brush; }
 	HPEN Get_Pen() { return m_Pen; }
 
+public:
+	void Monster_move(int iA);
+
 protected:
 	INFO	m_tInfo;		// 객체들의 좌표와 크기를 저장한다.
 	RECT	m_tRect;		// 저장된 좌표와 크기를 통해 Rect를 만든다.
