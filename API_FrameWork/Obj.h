@@ -24,25 +24,33 @@ protected:
 public:
 	const INFO& Get_Info() const { return m_tInfo; }
 	const RECT& Get_Rect() const { return m_tRect; }
+
 public:
-	void Set_Dead() { m_bDead = true; }
 	bool Is_Dead() { return m_bDead; }
+
+	void Set_Dead() { m_bDead = true; }
 	void Set_Pos(float _x, float _y);
 	void Set_Angle(float _fAngle) { m_fAngle = _fAngle; }
 	void Set_Target(CObj* _pTarget) { m_pTarget = _pTarget; }
+	void Set_Speed(float _fSpeed) { m_fSpeed = _fSpeed; }
+	void Set_AngleSpeed(float _fAngleSpeed) { m_fAngleSpeed = _fAngleSpeed; }
+	
+	int Get_Damage() { return m_iDamage; }
+	float Get_Angle() { return m_fAngle; }
+	
+	void Add_Angle(float _fAngle) { m_fAngle += _fAngle; }
+	void Damage_Hp(int _iDamage) { m_iHp -= _iDamage; }
+	
+public:
 	HBRUSH Set_Color(int r, int g, int b);
 	void Set_PenColor(int r, int g, int b, int width = 1);
 	void Set_Pen_UnVisible();
-	void Add_Angle(float _fAngle) { m_fAngle += _fAngle; }
-	void Damage_Hp(int _iDamage) { m_iHp -= _iDamage; }
-	int Get_Damage() { return m_iDamage; }
-	void Set_Speed(float _fSpeed) { m_fSpeed = _fSpeed; }
-	void Set_AngleSpeed(float _fAngleSpeed) { m_fAngleSpeed = _fAngleSpeed; }
-	float Get_Angle() { return m_fAngle; }
-
 
 	HBRUSH Get_Brush() { return m_Brush; }
 	HPEN Get_Pen() { return m_Pen; }
+
+public:
+	virtual void Collision(CObj* _obj, OBJID::ID _id) {}
 
 protected:
 	INFO	m_tInfo;		// 객체들의 좌표와 크기를 저장한다.

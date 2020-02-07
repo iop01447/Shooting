@@ -29,6 +29,23 @@ void CCollisionMgr::Collision_Rect(list<CObj*>& _Dst, list<CObj*>& _Src) //¾Õ¿¡ 
 	}
 }
 
+void CCollisionMgr::Collision_Rect(list<CObj*>& _Dst, list<CObj*>& _Src, OBJID::ID _DstId, OBJID::ID _SrcId)
+{
+	RECT rc = {};
+
+	for (auto& Dst : _Dst)
+	{
+		for (auto& Src : _Src)
+		{
+			if (IntersectRect(&rc, &(Dst->Get_Rect()), &(Src->Get_Rect())))
+			{
+				Dst->Collision(Src, _SrcId);
+				Src->Collision(Src, _DstId);
+			}
+		}
+	}
+}
+
 void CCollisionMgr::Collision_Sphere(list<CObj*>& _Dst, list<CObj*>& _Src)
 {
 	for (auto& Dst : _Dst)

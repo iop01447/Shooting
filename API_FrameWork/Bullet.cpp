@@ -19,7 +19,7 @@ void CBullet::Initialize()
 	m_tInfo.iCY = 15;
 
 	m_fSpeed = 7.f;
-	m_iDamage = 1;
+	m_iDamage = 2;
 }
 
 int CBullet::Update()

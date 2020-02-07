@@ -15,6 +15,7 @@ public:
 public:
 	CObj * Create_Bullet();
 	void Set_Bullet(list<CObj*>* _pBullet) { m_pMonsterBullet = _pBullet; }
+	void Set_Item(list<CObj*>* _pItem) { m_pItem = _pItem; }
 
 	template <typename T>
 	CObj* Create_Bullet()
@@ -25,6 +26,7 @@ public:
 
 private:
 	list<CObj*>*	m_pMonsterBullet;
+	list<CObj*>*	m_pItem;
 	int m_iColor[3];
 
 };

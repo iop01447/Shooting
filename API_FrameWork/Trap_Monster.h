@@ -14,6 +14,7 @@ public:
 	virtual void Release();
 public:
 	void Set_Bullet(list<CObj*>* _pBullet) { m_pMonsterBullet = _pBullet; }
+	void Set_Item(list<CObj*>* _pItem) { m_pItem = _pItem; }
 
 	template <typename T>
 	CObj* Create_Bullet(CObj*	_pTarget)
@@ -24,5 +25,6 @@ public:
 
 private:
 	list<CObj*>*	m_pMonsterBullet;
+	list<CObj*>*	m_pItem;
 };
 
