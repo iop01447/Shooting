@@ -20,7 +20,7 @@ void CShield_Monster::Initialize()
 	m_tInfo.iCY = 30;
 	m_iHp = 85;       //몬스터 최대 체력
 
-	m_fSpeed = 2.5f;
+	m_fSpeed = 3.f;
 	m_iColor[0] = 0; //R
 	m_iColor[1] = 255; //G
 	m_iColor[2] = 85; //G
@@ -32,7 +32,7 @@ int CShield_Monster::Update()
 		return OBJ_DEAD;
 
 	int iTime = rand();
-	Monster_move(100);
+	Monster_move(80);
 	//float fX = 0.f, fY = 0.f, fDis = 0.f;
 	//이동
 	/*

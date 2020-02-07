@@ -22,6 +22,8 @@ void CMonster::Initialize()
 
 	m_iHp = 10;       //몬스터 최대 체력
 	m_fSpeed = 3.25f;
+
+	Set_Color(160, 60, 160);
 }
 
 int CMonster::Update()

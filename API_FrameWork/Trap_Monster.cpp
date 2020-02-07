@@ -46,7 +46,7 @@ int CTrap_Monster::Update()
 
 
 	//////////////ÃÑ¾Ë¹ß»ç
-	if (iTime % 650 >= 0 && iTime % 650 <= 15)
+	if (iTime % 650 >= 0 && iTime % 650 <= 5)
 	{
 		m_pMonsterBullet->emplace_back(Create_Bullet<CTrap>(m_pTarget));
 		m_pMonsterBullet->back()->Set_Color(255, 0, 0);
