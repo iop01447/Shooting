@@ -27,8 +27,8 @@ void CItem::Initialize()
 		m_tInfo.iCX = 70;
 	}
 	else if (randint < 40) {
-		m_eId = ITEM::ID::SKILL_POINT;
-		m_tInfo.iCX = 95;
+		m_eId = ITEM::ID::SKILL;
+		m_tInfo.iCX = 40;
 	}
 	else {
 		m_eId = ITEM::ID::HP;
@@ -69,8 +69,8 @@ void CItem::Render(HDC _DC)
 	case ITEM::ID::SKILL_UP:
 		wsprintf(szBuff, L"SKILL_UP");
 		break;
-	case ITEM::ID::SKILL_POINT:
-		wsprintf(szBuff, L"SKILL_POINT");
+	case ITEM::ID::SKILL:
+		wsprintf(szBuff, L"SKILL");
 		break;
 	}
 
