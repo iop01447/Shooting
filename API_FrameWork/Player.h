@@ -19,15 +19,11 @@ public:
 	virtual void Release();
 
 private:
-	CObj* Create_Bullet();
-	CObj* Create_Bullet(BULLET::DIR _eDIr);
-	CObj * CPlayer::Create_Bullet(float x, float y);
-	CObj* Create_Bullet(float x, float y, float angle, BULLET::SHAPE shape);
-
 	template <typename T>
-	CObj* Create_Bullet(float x, float y, float angle)
+	CObj* Create_Bullet(float x, float y, float angle, BULLET::SHAPE shape = BULLET::SHAPE::CIRCLE)
 	{
 		CObj* pObj = CAbstractFactory<T>::Create(x, y, angle);
+		dynamic_cast<T*>(pObj)->Set_Shape(shape);
 		pObj->Set_Color(52, 137, 235);
 		pObj->Set_Pen_UnVisible();
 		return pObj;

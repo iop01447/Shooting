@@ -94,6 +94,9 @@
     <Filter Include="소스 파일\01.Obj\01.Bullet\03. Rotatable_Bullet">
       <UniqueIdentifier>{69df1869-c0a8-46b9-9a3b-51c8f586d91c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\01.Obj\04.Item">
+      <UniqueIdentifier>{8e87465a-1d5c-4cc0-8183-55000d10554f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -168,9 +171,6 @@
     <ClInclude Include="Focus_Monster.h">
       <Filter>소스 파일\01.Obj\02.Monster\02. Foucus_Monster</Filter>
     </ClInclude>
-    <ClInclude Include="RotationBullet.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Bounce_Ball.h">
       <Filter>소스 파일\01.Obj\01.Bullet\02. Monster_Bullet\01. Bounce_Ball</Filter>
     </ClInclude>
@@ -191,6 +191,12 @@
     </ClInclude>
     <ClInclude Include="RotatableBullet.h">
       <Filter>소스 파일\01.Obj\01.Bullet\03. Rotatable_Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>소스 파일\01.Obj\04.Item</Filter>
+    </ClInclude>
+    <ClInclude Include="RotationBullet.h">
+      <Filter>소스 파일\01.Obj\01.Bullet\01. Player_Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -239,9 +245,6 @@
     <ClCompile Include="Focus_Monster.cpp">
       <Filter>소스 파일\01.Obj\02.Monster\02. Foucus_Monster</Filter>
     </ClCompile>
-    <ClCompile Include="RotationBullet.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Bounce_Ball.cpp">
       <Filter>소스 파일\01.Obj\01.Bullet\02. Monster_Bullet\01. Bounce_Ball</Filter>
     </ClCompile>
@@ -262,6 +265,12 @@
     </ClCompile>
     <ClCompile Include="RotatableBullet.cpp">
       <Filter>소스 파일\01.Obj\01.Bullet\03. Rotatable_Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>소스 파일\01.Obj\04.Item</Filter>
+    </ClCompile>
+    <ClCompile Include="RotationBullet.cpp">
+      <Filter>소스 파일\01.Obj\01.Bullet\01. Player_Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

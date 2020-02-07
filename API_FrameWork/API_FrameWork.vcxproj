@@ -158,6 +158,7 @@
     <ClInclude Include="Focus_Monster.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="Include.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Kamikaze.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MinAoe.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Focus_Monster.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Kamikaze.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MinAoe.cpp" />

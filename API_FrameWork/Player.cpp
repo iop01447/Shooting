@@ -43,8 +43,8 @@ void CPlayer::Initialize()
 	m_StarPos[9] = { 124, 77 };
 	m_StarPos[10] = { 101, 0 };
 	for (int i = 0; i < 11; ++i) {
-		m_StarPos[i].x *= 0.1;
-		m_StarPos[i].y *= 0.1;
+		m_StarPos[i].x = LONG(m_StarPos[i].x*0.1);
+		m_StarPos[i].y = LONG(m_StarPos[i].y*0.1);
 	}
 
 	m_iHp = 5;
@@ -104,10 +104,10 @@ int CPlayer::Update()
 	int size = 7;
 	if (GetAsyncKeyState(VK_SPACE) && Can_Shoot_Bullet(m_iBulletCreateTime)) {
 		m_BulletOldTime = GetTickCount();
-		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX-size, m_tInfo.fY-3*size-10));
-		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX+size, m_tInfo.fY-3*size-10));
-		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX-2*size, m_tInfo.fY-10));
-		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX+2*size, m_tInfo.fY-10));
+		m_pBullet->emplace_back(Create_Bullet<CBullet>(m_tInfo.fX-size, m_tInfo.fY-3*size-10, m_fAngle, BULLET::SHAPE::ELLIPSE));
+		m_pBullet->emplace_back(Create_Bullet<CBullet>(m_tInfo.fX+size, m_tInfo.fY-3*size-10, m_fAngle, BULLET::SHAPE::ELLIPSE));
+		m_pBullet->emplace_back(Create_Bullet<CBullet>(m_tInfo.fX-2*size, m_tInfo.fY-10, m_fAngle, BULLET::SHAPE::ELLIPSE));
+		m_pBullet->emplace_back(Create_Bullet<CBullet>(m_tInfo.fX+2*size, m_tInfo.fY-10, m_fAngle, BULLET::SHAPE::ELLIPSE));
 	}
 
 	// 스킬 카운트 증가
@@ -174,41 +174,6 @@ void CPlayer::Release()
 {
 }
 
-CObj* CPlayer::Create_Bullet()
-{
-	CObj* pObj = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, m_fAngle);
-
-	return pObj;
-}
-
-CObj* CPlayer::Create_Bullet(BULLET::DIR _eDIr)
-{
-	CObj* pObj = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY);
-	dynamic_cast<CBullet*>(pObj)->Set_Dir(_eDIr);
-
-	return pObj;
-}
-
-CObj * CPlayer::Create_Bullet(float x, float y)
-{
-	CObj* pObj = CAbstractFactory<CBullet>::Create(x, y, m_fAngle);
-	dynamic_cast<CBullet*>(pObj)->Set_Shape(BULLET::SHAPE::ELLIPSE);
-	pObj->Set_Color(52, 137, 235);
-	pObj->Set_Pen_UnVisible();
-
-	return pObj;
-}
-
-CObj * CPlayer::Create_Bullet(float x, float y, float angle, BULLET::SHAPE shape)
-{
-	CObj* pObj = CAbstractFactory<CBullet>::Create(x, y, angle);
-	dynamic_cast<CBullet*>(pObj)->Set_Shape(shape);
-	pObj->Set_Color(52, 137, 235);
-	pObj->Set_Pen_UnVisible();
-
-	return pObj;
-}
-
 void CPlayer::Update_Polygon()
 {
 	m_Points[0].x = (LONG)m_tInfo.fX - 30;
@@ -242,7 +207,7 @@ void CPlayer::Skill_1()
 			angle = i * (360.f / cnt);
 			CObj *pObj = Create_Bullet<CRotationBullet>(m_tInfo.fX, m_tInfo.fY, angle);
 			dynamic_cast<CRotationBullet*>(pObj)->Set_RotSpeed(reverse);
-			dynamic_cast<CRotationBullet*>(pObj)->Set_RotDis(j * 50);
+			dynamic_cast<CRotationBullet*>(pObj)->Set_RotDis(j * 50.f);
 			m_pBullet->emplace_back(pObj);
 		}
 		reverse = !reverse;
