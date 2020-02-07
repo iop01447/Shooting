@@ -76,6 +76,11 @@ int CBoss::Update()
 		State_P2_Idle();
 		break;
 	}
+	if (!m_pLeft && !m_pRight)
+	{
+		m_tInfo.iCX = BOSS_ICX;
+		m_tInfo.iCY = BOSS_ICX;
+	}
 
 	MiniGun_Update();
 	Update_Rect();
@@ -205,8 +210,7 @@ void CBoss::State_P1_Idle()
 		m_tRect.left = m_tInfo.fX - BOSS_ICX / 2;
 		m_tRect.right = m_tInfo.fX + BOSS_ICX / 2;
 		m_tRect.bottom = m_tInfo.fY + BOSS_ICX / 2;*/
-		m_tInfo.iCX = BOSS_ICX;
-		m_tInfo.iCY = BOSS_ICX;
+		
 		return;
 	}
 	if (m_iTick >= 7 * 60) //Attack1 Á¶°Ç
@@ -392,7 +396,11 @@ void CBoss::State_P1_A1_S3()
 				m_pRight->Add_Angle(-2.f);
 		}
 	}
-	if (m_pRight->Get_Angle() == 270.f && m_pLeft->Get_Angle() == 270.f)
+	/*if (m_pRight && m_pLeft && m_pRight->Get_Angle() == 270.f && m_pLeft->Get_Angle() == 270.f)
+	{
+		m_eState = BOSS::P1_IDLE;
+	}*/
+	if ((!m_pRight || m_pRight->Get_Angle() == 270.f) && (!m_pLeft || m_pLeft->Get_Angle() == 270.f)&& m_fLeftAngle==180.f && m_fRightAngle == 0.f)
 	{
 		m_eState = BOSS::P1_IDLE;
 	}
