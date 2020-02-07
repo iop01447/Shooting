@@ -26,6 +26,7 @@ private:
 		dynamic_cast<T*>(pObj)->Set_Shape(shape);
 		pObj->Set_Color(52, 137, 235);
 		pObj->Set_Pen_UnVisible();
+		pObj->Set_Damage(m_iDamage);
 		return pObj;
 	}
 

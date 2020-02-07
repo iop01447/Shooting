@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Shotgun_Monster.h"
 #include "Bullet.h"
+#include "Item.h"
+#include "AbstractFactory.h"
 
 CShotgun_Monster::CShotgun_Monster()
 {
@@ -27,8 +29,10 @@ void CShotgun_Monster::Initialize()
 
 int CShotgun_Monster::Update()
 {
-	if (m_bDead)
+	if (m_bDead) {
+		m_pItem->emplace_back(CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY));
 		return OBJ_DEAD;
+	}
 
 	int iTime = rand();
 
