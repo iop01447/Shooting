@@ -59,7 +59,6 @@ void CItem::Render(HDC _DC)
 	Rectangle(_DC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	
 	TCHAR szBuff[32] = L"";
-	SetTextAlign(_DC, TA_CENTER);
 
 	switch (m_eId)
 	{

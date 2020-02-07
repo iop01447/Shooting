@@ -44,6 +44,8 @@ void CMainGame::Initialize()
 	m_listObj[OBJID::MOUSE].emplace_back(CAbstractFactory<CMouse>::Create());	
 
 	m_Screen = CreateSolidBrush(RGB(0, 0, 0));
+
+	SetTextAlign(m_BackBufferDC, TA_CENTER);
 }
 
 void CMainGame::Update()
