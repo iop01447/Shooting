@@ -222,9 +222,9 @@ void CMainGame::Render()
 		Screen.bottom = WINCY;
 		FillRect(m_BackBufferDC, &Screen, m_Screen);
 		if(iTime>=160)
-			TextOut(m_BackBufferDC, 60, 200, str, lstrlen(str));
+			TextOut(m_BackBufferDC, 300, 200, str, lstrlen(str));
 		else
-			TextOut(m_BackBufferDC, 60, 1000-5*iTime, str, lstrlen(str));
+			TextOut(m_BackBufferDC, 300, 1000-5*iTime, str, lstrlen(str));
 		SelectObject(m_BackBufferDC, m_Old_Font);
 		DeleteObject(m_Font);
 		
@@ -232,7 +232,7 @@ void CMainGame::Render()
 	//게임 클리어
 	if (m_eState == MAINGAME::COMPLETE)
 	{
-		m_Font = CreateFont(30, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 3, 2, 1,
+		m_Font = CreateFont(50, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 3, 2, 1,
 			VARIABLE_PITCH | FF_ROMAN, L"궁서");
 		m_Old_Font = (HFONT)SelectObject(m_BackBufferDC, m_Font);
 		TCHAR str[] = L"Game_Complete!";
@@ -243,9 +243,9 @@ void CMainGame::Render()
 		Screen.bottom = WINCY;
 		FillRect(m_BackBufferDC, &Screen, m_Screen);*/
 		if (iTime >= 120)
-			TextOut(m_BackBufferDC, 50, 200, str, lstrlen(str));
+			TextOut(m_BackBufferDC, 300, 200, str, lstrlen(str));
 		else
-			TextOut(m_BackBufferDC, 50, 800 - 5 * iTime, str, lstrlen(str));
+			TextOut(m_BackBufferDC, 300, 800 - 5 * iTime, str, lstrlen(str));
 		SelectObject(m_BackBufferDC, m_Old_Font);
 		DeleteObject(m_Font);
 
