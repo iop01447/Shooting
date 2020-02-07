@@ -24,6 +24,10 @@ namespace MINIGUN
 	enum ID { LEFT, RIGHT, IEND};
 	enum STATE { NORMAL, LOCKON, STATE_END};
 }
+namespace MAINGAME
+{
+	enum STATE { START, GAMEOVER, COMPLETE, END};
+}
 
 namespace ITEM
 {

@@ -26,38 +26,18 @@ void CBounce_Monster::Initialize()
 
 int CBounce_Monster::Update()
 {
-	if (m_bDead) {
+	if (m_bDead)
+	{
+		m_pMonsterBullet->clear();
 		m_pItem->emplace_back(CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY));
 		return OBJ_DEAD;
 	}
 
 	int iTime = rand();
+
+	Monster_move(300);
+
 	float fX = 0.f, fY = 0.f, fDis = 0.f;
-
-	fX = m_pTarget->Get_Info().fX - m_tInfo.fX;
-	if (m_tInfo.fY <= m_pTarget->Get_Info().fY + 200 && m_tInfo.fY >= m_pTarget->Get_Info().fY) {}
-	else if (m_tInfo.fY >= m_pTarget->Get_Info().fY - 100 && m_tInfo.fY <= m_pTarget->Get_Info().fY) {}
-	else if (m_pTarget->Get_Info().fY - 200 < 25)
-	{
-		fY = m_pTarget->Get_Info().fY - 200 - m_tInfo.fY;
-	}
-	else
-	{
-		fY = m_pTarget->Get_Info().fY + 200 - m_tInfo.fY;
-	}
-
-	fDis = sqrtf(fX * fX + fY * fY);
-	if (fDis == 0) { ; }
-	else
-	{
-		m_fAngle = acosf(fX / fDis) * 180.f / PI;
-		if (m_tInfo.fY < m_pTarget->Get_Info().fY)
-			m_fAngle *= -1.f;
-	}
-
-	m_tInfo.fX += cosf(m_fAngle * PI / 180.f) * m_fSpeed;
-	m_tInfo.fY -= sinf(m_fAngle * PI / 180.f) * m_fSpeed;
-
 	//////////////att
 	fX = m_pTarget->Get_Info().fX - m_tInfo.fX;
 	fY = m_pTarget->Get_Info().fY - m_tInfo.fY;
@@ -67,11 +47,8 @@ int CBounce_Monster::Update()
 	if (m_tInfo.fY < m_pTarget->Get_Info().fY)
 		m_fAngle *= -1.f;
 
-	m_tInfo.fX += cosf(m_fAngle * PI / 180.f) * m_fSpeed;
-	m_tInfo.fY -= sinf(m_fAngle * PI / 180.f) * m_fSpeed;
-
 	//////////////총알발사 --> 하드코딩 수정필요
-	if (iTime % 650 >= 0 && iTime % 650 <= 7 && m_tInfo.fY <= WINCY) // 일반공격
+	if (iTime % 650 >= 0 && iTime % 650 <= 7 && m_tInfo.fY >= 25) // 일반공격
 	{
 		m_pMonsterBullet->emplace_back(Create_Bullet<CBounce_Ball>());
 	}
@@ -85,7 +62,6 @@ void CBounce_Monster::Late_Update()
 	if (0 >= m_iHp)
 	{
 		m_bDead = true;
-		m_pMonsterBullet->clear();
 	}
 }
 

@@ -21,7 +21,7 @@ void CShield_Monster::Initialize()
 	m_tInfo.iCY = 30;
 	m_iHp = 85;       //몬스터 최대 체력
 
-	m_fSpeed = 2.5f;
+	m_fSpeed = 3.f;
 	m_iColor[0] = 0; //R
 	m_iColor[1] = 255; //G
 	m_iColor[2] = 85; //G
@@ -35,10 +35,10 @@ int CShield_Monster::Update()
 	}
 
 	int iTime = rand();
-
-	float fX = 0.f, fY = 0.f, fDis = 0.f;
-
+	Monster_move(80);
+	//float fX = 0.f, fY = 0.f, fDis = 0.f;
 	//이동
+	/*
 	fX = m_pTarget->Get_Info().fX - m_tInfo.fX;
 	if (m_tInfo.fY <= m_pTarget->Get_Info().fY + 100 && m_tInfo.fY >= m_pTarget->Get_Info().fY) {}
 	else if (m_tInfo.fY >= m_pTarget->Get_Info().fY - 100 && m_tInfo.fY <= m_pTarget->Get_Info().fY) {}
@@ -62,6 +62,7 @@ int CShield_Monster::Update()
 
 	m_tInfo.fX += cosf(m_fAngle * PI / 180.f) * m_fSpeed;
 	m_tInfo.fY -= sinf(m_fAngle * PI / 180.f) * m_fSpeed;
+	*/
 
 	Update_Rect();
 	return OBJ_NOEVENT;

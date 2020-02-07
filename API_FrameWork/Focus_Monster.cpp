@@ -19,13 +19,13 @@ void CFocus_Monster::Initialize()
 {
 	m_tInfo.fX = float(WINCX / 2);
 	m_tInfo.fY = 1.f;
-	m_tInfo.iCX = 60;
-	m_tInfo.iCY = 60;
+	m_tInfo.iCX = 70;
+	m_tInfo.iCY = 80;
 	m_iHp = 15;       //몬스터 최대 체력
 
 	m_fSpeed = 2.0f;
 
-	Set_Color(100, 160, 120);
+	Set_Color(110, 140, 110);
 }
 
 int CFocus_Monster::Update()
@@ -69,7 +69,13 @@ void CFocus_Monster::Late_Update()
 }
 
 void CFocus_Monster::Render(HDC _DC)
-{
+{	
+	Rectangle(_DC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	
+	m_tRect.left += 10;
+	m_tRect.right -= 10;
+	m_tRect.top += 20;
+	m_tRect.bottom -= 20;
 	Ellipse(_DC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	MoveToEx(_DC, (int)m_tInfo.fX, (int)m_tInfo.fY, nullptr);
 	LineTo(_DC, (int)m_tPosin.x, (int)m_tPosin.y);

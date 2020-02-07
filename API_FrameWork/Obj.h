@@ -50,6 +50,9 @@ public:
 	HPEN Get_Pen() { return m_Pen; }
 
 public:
+	void Monster_move(int iA);
+
+public:
 	virtual void Collision(CObj* _obj, OBJID::ID _id) {}
 
 protected:

@@ -14,7 +14,7 @@
 #include "Trap_Monster.h"
 
 CMainGame::CMainGame()
-	: m_pPlayer(nullptr), m_dwTime(GetTickCount()), m_iFPS(0), m_szFPS(L""), m_iStage(0), iTime(0)
+	: m_pPlayer(nullptr), m_dwTime(GetTickCount()), m_iFPS(0), m_szFPS(L""), m_iStage(0), iTime(0), m_eState(MAINGAME::END), m_ePrev(MAINGAME::END)
 {
 }
 
@@ -61,7 +61,23 @@ void CMainGame::Update()
 				++iter;
 		}
 	}
+	if (m_listObj[OBJID::PLAYER].empty())
+	{
+		m_eState = MAINGAME::GAMEOVER;
+		if (m_eState != m_ePrev)
+			iTime = 0;
+		m_ePrev = m_eState;
 
+		/*m_Font=CreateFont(100, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 3, 2, 1,
+			VARIABLE_PITCH | FF_ROMAN, L"궁서");
+		m_Old_Font = (HFONT)SelectObject(m_DC, m_Font);
+		TCHAR str[] = L"Game Over!";
+		TextOut(m_DC, 100, 200, str, lstrlen(str));
+		SelectObject(m_DC, m_Old_Font);
+		DeleteObject(m_Font);*/
+
+	}
+		
 	////////////////스테이지////////////몬스터 생성
 	if (m_listObj[OBJID::MONSTER].empty() && m_listObj[OBJID::BOSS].empty())
 	{
@@ -71,42 +87,77 @@ void CMainGame::Update()
 			Spwan_Kamikaze_Monster(float(WINCX - 100), 0.f);
 			Spwan_Kamikaze_Monster(float(100), 0.f);
 
-			Spwan_Normal_Monster(float(WINCX / 2), 0.f);
-			Spwan_Normal_Monster(float(WINCX - 100), 0.f);
-			Spwan_Normal_Monster(float(100), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX / 2), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX), 0.f);
+			Spwan_Shotgun_Monster(float(0), 0.f);
 			break;
 		case 1:
 			Spwan_Focus_Monster(float(WINCX / 2), 0.f);
 			Spwan_Focus_Monster(float(WINCX - 100), 0.f);
 			Spwan_Focus_Monster(float(100), 0.f);
 
-			Spwan_Shield_Monster(float(WINCX / 2), 25.f);
-			Spwan_Shield_Monster(float(WINCX - 100), 25.f);
-			Spwan_Bounce_Monster(float(WINCX - 100), 0.f);
-			Spwan_Shield_Monster(float(100), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX / 2), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX), 0.f);
+			Spwan_Shotgun_Monster(float(0), 0.f);
+
 			break;
 		case 2:
 			Spwan_Bounce_Monster(float(WINCX - 100), 0.f);
-			Spwan_Shield_Monster(float(WINCX - 100), 0.f);
 			Spwan_Bounce_Monster(float(100), 0.f);
-			Spwan_Shield_Monster(float(100), 0.f);
-			Spwan_Focus_Monster(float(WINCX / 4 *1), 0.f);
+
+			Spwan_Shield_Monster(float(WINCX / 2), 45.f);
+			Spwan_Shield_Monster(float(WINCX - 100), 45.f);
+			Spwan_Shield_Monster(float(100), 45.f);
+
+			Spwan_Focus_Monster(float(WINCX / 4 *1+100), 0.f);
 			Spwan_Focus_Monster(float(WINCX - 100), 0.f);
-			Spwan_Focus_Monster(float(WINCX /4*3), 0.f);
+			Spwan_Focus_Monster(float(WINCX /4*3-100), 0.f);
 			Spwan_Focus_Monster(float(100), 0.f);
 			break;
 		case 3:
-			Spwan_Trap_Monster(float(100), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX / 2), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX), 0.f);
+			Spwan_Shotgun_Monster(float(0), 0.f);
+
+			Spwan_Normal_Monster(float(WINCX / 2), 20.f);
+			Spwan_Normal_Monster(float(WINCX), 20.f);
+			Spwan_Normal_Monster(float(0), 20.f);
+
+			Spwan_Shield_Monster(float(WINCX / 2), 45.f);
+			Spwan_Shield_Monster(float(WINCX - 100), 45.f);
+			Spwan_Shield_Monster(float(100), 45.f);
 			break;
 		case 4:
-			Generate_Boss();
+			Spwan_Trap_Monster(float(0), 0.f);
+			Spwan_Trap_Monster(float(WINCX), 0.f);
+			Spwan_Trap_Monster(float(WINCX / 2), 0.f);
+
+			Spwan_Normal_Monster(float(WINCX / 2), 20.f);
+			Spwan_Normal_Monster(float(WINCX), 20.f);
+			Spwan_Normal_Monster(float(0), 20.f);
+
+			Spwan_Kamikaze_Monster(float(WINCX - 100), 20.f);
+			Spwan_Kamikaze_Monster(float(100), 20.f);
+
+			Spwan_Shield_Monster(float(WINCX / 2), 35.f);
+			Spwan_Shield_Monster(float(WINCX - 100), 35.f);
+			Spwan_Shield_Monster(float(100), 35.f);
+
+			Spwan_Focus_Monster(float(WINCX / 2), 10.f);
+			Spwan_Focus_Monster(float(WINCX - 100), 10.f);
+			Spwan_Focus_Monster(float(100), 10.f);
+
+			Spwan_Shotgun_Monster(float(WINCX / 2), 0.f);
+			Spwan_Shotgun_Monster(float(WINCX), 0.f);
+			Spwan_Shotgun_Monster(float(0), 0.f);
 			return;
 		case 5:
+			Generate_Boss();
 			return;
 		}
 		++m_iStage;
 	}
-
+	++iTime;
 }
 
 
@@ -149,6 +200,19 @@ void CMainGame::Render()
 
 		m_iFPS = 0;
 		m_dwTime = GetTickCount();
+	}
+	if (m_eState == MAINGAME::GAMEOVER)
+	{
+		m_Font = CreateFont(80, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 3, 2, 1,
+			VARIABLE_PITCH | FF_ROMAN, L"궁서");
+		m_Old_Font = (HFONT)SelectObject(m_BackBufferDC, m_Font);
+		TCHAR str[] = L"Game Over!";
+		if(iTime>=120)
+			TextOut(m_BackBufferDC, 60, 200, str, lstrlen(str));
+		else
+			TextOut(m_BackBufferDC, 60, 800-5*iTime, str, lstrlen(str));
+		SelectObject(m_BackBufferDC, m_Old_Font);
+		DeleteObject(m_Font);
 	}
 
 	BitBlt(m_DC, 0, 0, WINCX, WINCY, m_BackBufferDC, 0, 0, SRCCOPY);

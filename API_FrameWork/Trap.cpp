@@ -14,11 +14,9 @@ CTrap::~CTrap()
 
 void CTrap::Initialize()
 {
-	m_tInfo.iCX = 10;
-	m_tInfo.iCY = 10;
+	m_tInfo.iCX = 30;
+	m_tInfo.iCY = 30;
 	m_fSpeed = 4.f;
-
-	Set_Color(255, 0, 0);
 }
 
 int CTrap::Update()

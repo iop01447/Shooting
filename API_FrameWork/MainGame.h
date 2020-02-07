@@ -48,6 +48,10 @@ private:
 
 
 	int iTime;
+	MAINGAME::STATE		m_eState;
+	MAINGAME::STATE		m_ePrev;
+	HFONT				m_Font, m_Old_Font;
+
 };
 
 
