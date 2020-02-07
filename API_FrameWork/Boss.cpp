@@ -203,16 +203,16 @@ void CBoss::Rotate_Left(float _fAngle)
 
 void CBoss::State_P1_Idle()
 {
-	if (m_pLeft == nullptr && m_pRight == nullptr && m_tInfo.fX==300.f) //페이즈2 조건
-	{
-		m_eState = BOSS::P2_IDLE;
-		/*m_tRect.top = m_tInfo.fY - BOSS_ICX / 2;
-		m_tRect.left = m_tInfo.fX - BOSS_ICX / 2;
-		m_tRect.right = m_tInfo.fX + BOSS_ICX / 2;
-		m_tRect.bottom = m_tInfo.fY + BOSS_ICX / 2;*/
-		
-		return;
-	}
+	//if (m_pLeft == nullptr && m_pRight == nullptr && m_tInfo.fX==300.f) //페이즈2 조건
+	//{
+	//	m_eState = BOSS::P2_IDLE;
+	//	/*m_tRect.top = m_tInfo.fY - BOSS_ICX / 2;
+	//	m_tRect.left = m_tInfo.fX - BOSS_ICX / 2;
+	//	m_tRect.right = m_tInfo.fX + BOSS_ICX / 2;
+	//	m_tRect.bottom = m_tInfo.fY + BOSS_ICX / 2;*/
+	//	
+	//	return;
+	//}
 	if (m_iTick >= 7 * 60) //Attack1 조건
 	{
 		m_eState = BOSS::P1_A1_PRE;
@@ -428,4 +428,16 @@ void CBoss::Shoot(float _fRAngle, float _fSpeed)
 	m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX  + POSIN_HEIGHT*cosf(m_fAngle*PI / 180.f), m_tInfo.fY - POSIN_HEIGHT*sinf(m_fAngle*PI / 180.f)));
 	m_pBullet->back()->Set_Speed(_fSpeed);
 	m_pBullet->back()->Set_Angle(m_fAngle + _fRAngle);
+	if (!m_pLeft)
+	{
+		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX + POSIN_HEIGHT*cosf(m_fAngle*PI / 180.f), m_tInfo.fY - POSIN_HEIGHT*sinf(m_fAngle*PI / 180.f)));
+		m_pBullet->back()->Set_Speed(_fSpeed);
+		m_pBullet->back()->Set_Angle(m_fAngle + _fRAngle+30.f);
+	}
+	if (!m_pRight)
+	{
+		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX + POSIN_HEIGHT*cosf(m_fAngle*PI / 180.f), m_tInfo.fY - POSIN_HEIGHT*sinf(m_fAngle*PI / 180.f)));
+		m_pBullet->back()->Set_Speed(_fSpeed);
+		m_pBullet->back()->Set_Angle(m_fAngle + _fRAngle - 30.f);
+	}
 }
