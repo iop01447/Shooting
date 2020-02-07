@@ -20,5 +20,6 @@ public:
 private:
 	BULLET::DIR		m_eDir;
 	int iCheck;
+	int m_iTime = 0;
 };
 
