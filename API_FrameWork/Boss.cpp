@@ -140,7 +140,9 @@ void CBoss::Render(HDC _DC)
 	//체력바
 	Rectangle(_DC, WINCX-40, 30, WINCX-30, 300);
 	RECT tHp = { WINCX - 40, 30 + ((float)(BOSS_MAX_HP - m_iHp) / (float)BOSS_MAX_HP)*(300-30),  WINCX - 30, 300 };
-	FillRect(_DC, &tHp, CreateSolidBrush(RGB(255, 0, 0)));
+	this->Set_Color(255, 0, 0);
+	FillRect(_DC, &tHp, m_Brush);
+	this->Set_Color(255, 255, 255);
 
 	
 
@@ -199,6 +201,12 @@ void CBoss::State_P1_Idle()
 	if (m_pLeft == nullptr && m_pRight == nullptr && m_tInfo.fX==300.f) //페이즈2 조건
 	{
 		m_eState = BOSS::P2_IDLE;
+		/*m_tRect.top = m_tInfo.fY - BOSS_ICX / 2;
+		m_tRect.left = m_tInfo.fX - BOSS_ICX / 2;
+		m_tRect.right = m_tInfo.fX + BOSS_ICX / 2;
+		m_tRect.bottom = m_tInfo.fY + BOSS_ICX / 2;*/
+		m_tInfo.iCX = BOSS_ICX;
+		m_tInfo.iCY = BOSS_ICX;
 		return;
 	}
 	if (m_iTick >= 7 * 60) //Attack1 조건

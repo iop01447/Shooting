@@ -83,13 +83,19 @@ void CMiniGun::Render(HDC _DC)
 	{
 		Rectangle(_DC, WINCX-60, 30, WINCX-50, 150);
 		RECT tHp = { WINCX - 60, 30 + ((float)(MINI_MAXHP - m_iHp) / (float)MINI_MAXHP)*(150 - 30),  WINCX - 50, 150 };
-		FillRect(_DC, &tHp, CreateSolidBrush(RGB(255, 0, 0)));
+		this->Set_Color(255, 0, 0);
+		FillRect(_DC, &tHp, m_Brush);
+		this->Set_Color(255, 255, 255);
+
 	}
 	else
 	{
 		Rectangle(_DC, WINCX - 60, 180, WINCX - 50, 300);
 		RECT tHp = { WINCX - 60, 180 + ((float)(MINI_MAXHP - m_iHp) / (float)MINI_MAXHP)*(150 - 30),  WINCX - 50, 300 };
-		FillRect(_DC, &tHp, CreateSolidBrush(RGB(255, 0, 0)));
+		this->Set_Color(255, 0, 0);
+		FillRect(_DC, &tHp, m_Brush);
+		this->Set_Color(255, 255, 255);
+
 	}
 
 }

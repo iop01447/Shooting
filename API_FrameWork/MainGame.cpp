@@ -100,8 +100,9 @@ void CMainGame::Update()
 			break;
 		case 4:
 			Generate_Boss();
-			return;
+			break;
 		case 5:
+
 			return;
 		}
 		++m_iStage;
