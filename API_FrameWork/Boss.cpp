@@ -231,14 +231,14 @@ void CBoss::State_P1_Idle()
 	//Rotate_Body(m_fAngleSpeed/2.f);
 	Rotate_Right(m_fRightSpeed);
 	Rotate_Left(m_fLeftSpeed);
-	if (m_iTick % 30 == 0)
+	if (m_iTick % 20 == 0)
 	{
 		if (m_pLeft)
 			dynamic_cast<CMiniGun*>(m_pLeft)->Shoot_Basic();
 		if (m_pRight)
 			dynamic_cast<CMiniGun*>(m_pRight)->Shoot_Basic();
 	}
-	if (m_iTick % 60 == 0)
+	if (m_iTick % 5 == 0)
 	{
 		Shoot(0.f, 7.f);
 		Shoot(45.f, 7.f);
@@ -301,15 +301,18 @@ void CBoss::State_P1_A1_S1()
 
 void CBoss::State_P1_A1_S2()
 {
-	if (m_iTick % 60 == 0)
+	if (m_iTick % 20 == 0)
 		if (m_pLeft)
 			dynamic_cast<CMiniGun*>(m_pLeft)->Shoot_Basic(7.f);
-	if (m_iTick % 60 == 30)
+	if (m_iTick % 20 == 10)
 		if (m_pRight)
 			dynamic_cast<CMiniGun*>(m_pRight)->Shoot_Basic(7.f);
 	Rotate_Body(4.f);
-	if(/*m_iTick%300/100!=1 &&*/ m_iTick%4==0)
-		Shoot(0.0f, 3.f);
+	if (/*m_iTick%300/100!=1 &&*/ m_iTick % 4 == 0)
+	{
+		Shoot(0.0f, 6.f);
+		Shoot(45.0f, 6.f);
+	}
 	if (m_iTick >= 600 && m_iTick < 900)
 	{
 		/*if (m_tInfo.fX > 300.f)
