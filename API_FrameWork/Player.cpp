@@ -126,7 +126,19 @@ int CPlayer::Update()
 			m_iSkillCnt = 0;
 
 		m_BulletOldTime = GetTickCount();
+
 		Skill_1();
+	}
+	if (GetAsyncKeyState('W') && m_iSkillCnt && Can_Shoot_Bullet(200))
+	{
+		m_OldGazeTime = GetTickCount();
+		--m_iSkillCnt;
+		if (m_iSkillCnt < 0)
+			m_iSkillCnt = 0;
+
+		m_BulletOldTime = GetTickCount();
+
+		Skill_2();
 	}
 
 	// 무적모드 설정
@@ -233,6 +245,24 @@ void CPlayer::Skill_1()
 			dis = j * 50.f;
 			radian_angle = angle * PI / 180.f;
 			CObj *pObj = Create_Bullet<CBullet>(m_tInfo.fX + cosf(radian_angle) * dis, m_tInfo.fY - sinf(radian_angle) * dis, angle);
+			pObj->Set_Damage(20);
+			m_pBullet->emplace_back(pObj);
+		}
+		reverse = !reverse;
+	}
+}
+
+void CPlayer::Skill_2()
+{
+	int cnt = 20, dis = 0;
+	float angle = 0, radian_angle = 0;
+	bool reverse = false;
+	for (int j = 0; j < 3; j++) {
+		for (int i = 0; i < cnt; ++i) {
+			angle = i * (360.f / cnt);
+			CObj *pObj = Create_Bullet<CRotationBullet>(m_tInfo.fX, m_tInfo.fY, angle);
+			dynamic_cast<CRotationBullet*>(pObj)->Set_RotSpeed(reverse);
+			dynamic_cast<CRotationBullet*>(pObj)->Set_RotDis(j * 50.f);
 			pObj->Set_Damage(20);
 			m_pBullet->emplace_back(pObj);
 		}
