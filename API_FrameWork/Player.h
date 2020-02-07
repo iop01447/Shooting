@@ -19,15 +19,11 @@ public:
 	virtual void Release();
 
 private:
-	CObj* Create_Bullet();
-	CObj* Create_Bullet(BULLET::DIR _eDIr);
-	CObj * CPlayer::Create_Bullet(float x, float y);
-	CObj* Create_Bullet(float x, float y, float angle, BULLET::SHAPE shape);
-
 	template <typename T>
-	CObj* Create_Bullet(float x, float y, float angle)
+	CObj* Create_Bullet(float x, float y, float angle, BULLET::SHAPE shape = BULLET::SHAPE::CIRCLE)
 	{
 		CObj* pObj = CAbstractFactory<T>::Create(x, y, angle);
+		dynamic_cast<T*>(pObj)->Set_Shape(shape);
 		pObj->Set_Color(52, 137, 235);
 		pObj->Set_Pen_UnVisible();
 		return pObj;
@@ -36,6 +32,7 @@ private:
 public:
 	void Set_Bullet(list<CObj*>* _pBullet) { m_pBullet = _pBullet; }
 	bool Can_Shoot_Bullet(DWORD _BulletcreateTime) { return (GetTickCount() - m_BulletOldTime) > _BulletcreateTime; }
+	void Shoot_Bullet();
 
 public:
 	void Update_Polygon();
@@ -45,6 +42,9 @@ public:
 
 public:
 	void Skill_1();
+
+public:
+	virtual void Collision(CObj* _obj, OBJID::ID _id);
 
 private:
 	list<CObj*>*	m_pBullet;
@@ -58,7 +58,8 @@ private:
 	const DWORD		m_GazeMaxTime;
 	DWORD			m_OldGazeTime;
 
-	int				m_iSkillCnt;
+	int				m_iSkillCnt; // 스킬을 사용할 수 있는 횟수
+	int				m_iSkillLv;
 
 	bool			m_bUnDead;
 };

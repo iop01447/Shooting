@@ -12,8 +12,11 @@ public:
 	virtual void Late_Update();
 	virtual void Render(HDC _DC);
 	virtual void Release();
+public:
+	void Set_Item(list<CObj*>* _pItem) { m_pItem = _pItem; }
 
 private:
+	list<CObj*>*	m_pItem;
 	int m_iColor[3];
 
 };

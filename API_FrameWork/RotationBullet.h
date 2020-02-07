@@ -1,7 +1,7 @@
 #pragma once
-#include "Obj.h"
+#include "Bullet.h"
 class CRotationBullet :
-	public CObj
+	public CBullet
 {
 public:
 	CRotationBullet();

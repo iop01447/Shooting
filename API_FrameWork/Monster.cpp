@@ -3,6 +3,7 @@
 #include "Bullet.h"
 #include "Rect.h"
 #include "MinAoe.h"
+#include "Item.h"
 
 CMonster::CMonster()
 {
@@ -28,9 +29,10 @@ void CMonster::Initialize()
 
 int CMonster::Update()
 {
-	if (m_bDead)
+	if (m_bDead) {
+		m_pItem->emplace_back(CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY));
 		return OBJ_DEAD;
-
+	}
 	int iTime = rand();
 
 	Monster_move(250);

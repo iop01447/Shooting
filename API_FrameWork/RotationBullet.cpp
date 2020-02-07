@@ -21,7 +21,7 @@ void CRotationBullet::Initialize()
 
 	m_fRotSpeed = 50.f;
 	m_fRotDis = 20.f;
-	m_iDamage = 20.f;
+	m_iDamage = 20;
 
 	m_bStart = true;
 }

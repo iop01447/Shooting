@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Focus_Monster.h"
 #include "Bullet.h"
+#include "Item.h"
 
 
 
@@ -29,8 +30,10 @@ void CFocus_Monster::Initialize()
 
 int CFocus_Monster::Update()
 {
-	if (m_bDead)
+	if (m_bDead) {
+		m_pItem->emplace_back(CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY));
 		return OBJ_DEAD;
+	}
 
 	int iTime = rand();
 	float fX = 0.f, fY = 0.f, fDis = 0.f;

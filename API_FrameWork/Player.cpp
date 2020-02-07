@@ -2,10 +2,12 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "RotationBullet.h"
+#include "Item.h"
 
 
 CPlayer::CPlayer()
-	:m_iBulletCreateTime(100), m_BulletOldTime(GetTickCount()), m_GazeMaxTime(5000), m_OldGazeTime(GetTickCount()), m_iSkillCnt(5), m_bUnDead(false)
+	:m_iBulletCreateTime(100), m_BulletOldTime(GetTickCount()), m_GazeMaxTime(5000), m_OldGazeTime(GetTickCount()), m_iSkillCnt(5),
+	m_bUnDead(false), m_iSkillLv(1)
 {
 	ZeroMemory(&m_Points, sizeof(m_Points));
 }
@@ -20,7 +22,7 @@ void CPlayer::Initialize()
 {
 	m_tInfo.fX = WINCX / 2;
 	m_tInfo.fY = WINCY - 100;
-	m_tInfo.iCX = 30;
+	m_tInfo.iCX = 20;
 	m_tInfo.iCY = 15;
 
 	m_fDis = 100.f;
@@ -43,8 +45,8 @@ void CPlayer::Initialize()
 	m_StarPos[9] = { 124, 77 };
 	m_StarPos[10] = { 101, 0 };
 	for (int i = 0; i < 11; ++i) {
-		m_StarPos[i].x *= 0.1;
-		m_StarPos[i].y *= 0.1;
+		m_StarPos[i].x = LONG(m_StarPos[i].x*0.1);
+		m_StarPos[i].y = LONG(m_StarPos[i].y*0.1);
 	}
 
 	m_iHp = 5;
@@ -101,13 +103,9 @@ int CPlayer::Update()
 		m_tInfo.fY += m_fSpeed;
 
 	// 총알 쏘기
-	int size = 7;
 	if (GetAsyncKeyState(VK_SPACE) && Can_Shoot_Bullet(m_iBulletCreateTime)) {
 		m_BulletOldTime = GetTickCount();
-		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX-size, m_tInfo.fY-3*size-10));
-		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX+size, m_tInfo.fY-3*size-10));
-		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX-2*size, m_tInfo.fY-10));
-		m_pBullet->emplace_back(Create_Bullet(m_tInfo.fX+2*size, m_tInfo.fY-10));
+		Shoot_Bullet();
 	}
 
 	// 스킬 카운트 증가
@@ -174,39 +172,23 @@ void CPlayer::Release()
 {
 }
 
-CObj* CPlayer::Create_Bullet()
+void CPlayer::Shoot_Bullet()
 {
-	CObj* pObj = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, m_fAngle);
-
-	return pObj;
-}
-
-CObj* CPlayer::Create_Bullet(BULLET::DIR _eDIr)
-{
-	CObj* pObj = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY);
-	dynamic_cast<CBullet*>(pObj)->Set_Dir(_eDIr);
-
-	return pObj;
-}
-
-CObj * CPlayer::Create_Bullet(float x, float y)
-{
-	CObj* pObj = CAbstractFactory<CBullet>::Create(x, y, m_fAngle);
-	dynamic_cast<CBullet*>(pObj)->Set_Shape(BULLET::SHAPE::ELLIPSE);
-	pObj->Set_Color(52, 137, 235);
-	pObj->Set_Pen_UnVisible();
-
-	return pObj;
-}
-
-CObj * CPlayer::Create_Bullet(float x, float y, float angle, BULLET::SHAPE shape)
-{
-	CObj* pObj = CAbstractFactory<CBullet>::Create(x, y, angle);
-	dynamic_cast<CBullet*>(pObj)->Set_Shape(shape);
-	pObj->Set_Color(52, 137, 235);
-	pObj->Set_Pen_UnVisible();
-
-	return pObj;
+	if (m_iSkillLv == 1) {
+		m_pBullet->emplace_back(Create_Bullet<CBullet>(m_tInfo.fX, m_tInfo.fY, m_fAngle, BULLET::SHAPE::ELLIPSE));
+	}
+	else if (m_iSkillLv == 2) {
+		int size = 7;
+		m_pBullet->emplace_back(Create_Bullet<CBullet>(m_tInfo.fX - size, m_tInfo.fY - 3 * size - 10, m_fAngle, BULLET::SHAPE::ELLIPSE));
+		m_pBullet->emplace_back(Create_Bullet<CBullet>(m_tInfo.fX + size, m_tInfo.fY - 3 * size - 10, m_fAngle, BULLET::SHAPE::ELLIPSE));
+	}
+	else if(m_iSkillLv == 3) {
+		int size = 7;
+		m_pBullet->emplace_back(Create_Bullet<CBullet>(m_tInfo.fX - size, m_tInfo.fY - 3 * size - 10, m_fAngle, BULLET::SHAPE::ELLIPSE));
+		m_pBullet->emplace_back(Create_Bullet<CBullet>(m_tInfo.fX + size, m_tInfo.fY - 3 * size - 10, m_fAngle, BULLET::SHAPE::ELLIPSE));
+		m_pBullet->emplace_back(Create_Bullet<CBullet>(m_tInfo.fX - 2 * size, m_tInfo.fY - 10, m_fAngle, BULLET::SHAPE::ELLIPSE));
+		m_pBullet->emplace_back(Create_Bullet<CBullet>(m_tInfo.fX + 2 * size, m_tInfo.fY - 10, m_fAngle, BULLET::SHAPE::ELLIPSE));
+	}
 }
 
 void CPlayer::Update_Polygon()
@@ -242,9 +224,28 @@ void CPlayer::Skill_1()
 			angle = i * (360.f / cnt);
 			CObj *pObj = Create_Bullet<CRotationBullet>(m_tInfo.fX, m_tInfo.fY, angle);
 			dynamic_cast<CRotationBullet*>(pObj)->Set_RotSpeed(reverse);
-			dynamic_cast<CRotationBullet*>(pObj)->Set_RotDis(j * 50);
+			dynamic_cast<CRotationBullet*>(pObj)->Set_RotDis(j * 50.f);
 			m_pBullet->emplace_back(pObj);
 		}
 		reverse = !reverse;
+	}
+}
+
+void CPlayer::Collision(CObj * _obj, OBJID::ID _id)
+{
+	if (!_id == OBJID::ID::ITEM) return;
+	ITEM::ID id = dynamic_cast<CItem*>(_obj)->Get_Id();
+
+	using namespace ITEM;
+	switch (id)
+	{
+	case ID::HP:
+		m_iHp += 1;
+		break;
+	case ID::SKILL_UP:
+		m_iSkillLv += 1;
+		if (m_iSkillLv > 3)
+			m_iSkillLv = 3;
+		break;
 	}
 }

@@ -179,6 +179,7 @@ void CMainGame::Late_Update()
 	CCollisionMgr::Collision_Rect(m_listObj[OBJID::MONSTER], m_listObj[OBJID::PLAYER_BULLET]);
 	CCollisionMgr::Collision_Rect(m_listObj[OBJID::PLAYER], m_listObj[OBJID::MONSTER]);
 	CCollisionMgr::Collision_Rect(m_listObj[OBJID::BOSS], m_listObj[OBJID::PLAYER_BULLET]);	
+	CCollisionMgr::Collision_Rect(m_listObj[OBJID::PLAYER], m_listObj[OBJID::ITEM], OBJID::PLAYER, OBJID::ITEM);
 }
 
 void CMainGame::Render()
@@ -288,6 +289,7 @@ void CMainGame::Spwan_Normal_Monster(float _fX, float _fY)
 	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CMonster>::Create(_fX, _fY));
 	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
 	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	dynamic_cast<CMonster*>(m_listObj[OBJID::MONSTER].back())->Set_Item(&m_listObj[OBJID::ITEM]); // 추가
 }
 
 void CMainGame::Spwan_Kamikaze_Monster(float _fX, float _fY)
@@ -301,6 +303,7 @@ void CMainGame::Spwan_Focus_Monster(float _fX, float _fY)
 	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CFocus_Monster>::Create(_fX, _fY));
 	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
 	dynamic_cast<CFocus_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	dynamic_cast<CFocus_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Item(&m_listObj[OBJID::ITEM]); // 추가
 }
 
 void CMainGame::Spwan_Bounce_Monster(float _fX, float _fY)
@@ -308,6 +311,7 @@ void CMainGame::Spwan_Bounce_Monster(float _fX, float _fY)
 	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CBounce_Monster>::Create(_fX, _fY));
 	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
 	dynamic_cast<CBounce_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	dynamic_cast<CBounce_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Item(&m_listObj[OBJID::ITEM]); // 추가
 }
 
 void CMainGame::Spwan_Shotgun_Monster(float _fX, float _fY)
@@ -321,6 +325,7 @@ void CMainGame::Spwan_Shield_Monster(float _fX, float _fY)
 {
 	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CShield_Monster>::Create(_fX, _fY));
 	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
+	dynamic_cast<CShield_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Item(&m_listObj[OBJID::ITEM]); // 추가
 }
 
 void CMainGame::Spwan_Trap_Monster(float _fX, float _fY)
@@ -328,4 +333,5 @@ void CMainGame::Spwan_Trap_Monster(float _fX, float _fY)
 	m_listObj[OBJID::MONSTER].emplace_back(CAbstractFactory<CTrap_Monster>::Create(_fX, _fY));
 	m_listObj[OBJID::MONSTER].back()->Set_Target(m_listObj[OBJID::PLAYER].front());
 	dynamic_cast<CTrap_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Bullet(&m_listObj[OBJID::BULLET]);
+	dynamic_cast<CTrap_Monster*>(m_listObj[OBJID::MONSTER].back())->Set_Item(&m_listObj[OBJID::ITEM]);
 }

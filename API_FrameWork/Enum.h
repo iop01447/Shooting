@@ -6,18 +6,19 @@
 namespace BULLET
 {
 	enum SHAPE { CIRCLE, ELLIPSE, SHAPE_END };
-	enum DIR { LEFT, RIGHT, UP, DOWN, BASIC, DIR_END
-	};
+	enum DIR { LEFT, RIGHT, UP, DOWN, BASIC, DIR_END };
 }
 
 namespace OBJID
 {
-	enum ID { PLAYER, MONSTER, BOSS, BULLET, PLAYER_BULLET, MOUSE, END };
+	enum ID { PLAYER, MONSTER, BOSS, BULLET, PLAYER_BULLET, MOUSE, ITEM, END };
 }
+
 namespace BOSS
 {
 	enum STATE { INI, P1_IDLE, P1_A1_PRE ,P1_A1_S1, P1_A1_S2, P1_A1_S3,P2_IDLE, END};
 }
+
 namespace MINIGUN
 {
 	enum ID { LEFT, RIGHT, IEND};
@@ -28,5 +29,9 @@ namespace MAINGAME
 	enum STATE { START, GAMEOVER, COMPLETE, END};
 }
 
+namespace ITEM
+{
+	enum ID { HP, SKILL_UP, END };
+}
 
 #endif // !__ENUM_H__

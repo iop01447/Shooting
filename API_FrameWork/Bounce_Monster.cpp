@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Bounce_Monster.h"
 #include "Bounce_Ball.h"
+#include "Item.h"
 
 CBounce_Monster::CBounce_Monster()
 {
@@ -28,6 +29,7 @@ int CBounce_Monster::Update()
 	if (m_bDead)
 	{
 		m_pMonsterBullet->clear();
+		m_pItem->emplace_back(CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY));
 		return OBJ_DEAD;
 	}
 
